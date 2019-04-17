@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <!--    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <!--  <title>Simple example - Editor.md examples</title> -->
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+      <script src=" https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"> </script> <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js">
+    </script>
+    <![endif]-->
+    <link rel="stylesheet" href="../static/editor/css/style.css" th:href="@{/editor/css/style.css}" />
+    <link rel="stylesheet" href="../static/editor/css/editormd.css" th:href="@{/editor/css/editormd.css}" />
+    <link rel="shortcut icon" href="https://pandao.github.io/editor.md/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="../static/css/editor2.css" th:href="@{/css/editor2.css}">
+</head>
+
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="span12">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                    </div>
+                    <div id="article-title" class="input-group input-group-lg">
+                        <input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon1">
+                    </div>
+                    <!-- Button trigger modal -->
+                    <button id="article-publish" type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModal">
+                        发表文章
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">发布文章</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div>    
+                                        <p>文章标签：</p>
+                                    </div>
+                                    <div >
+                                        <p>个人分类:
+                                        <select>
+                                            <option value="volvo">Volvo</option>
+                                            <option value="saab">Saab</option>
+                                            <option value="opel">Opel</option>
+                                            <option value="audi">Audi</option>
+                                        </select>
+                                        </p>
+                                    </div>
+                                    <div >   
+                                        <p>博客分类：
+                                        
+                                        <select>
+                                            <option value="volvo">Volvo</option>
+                                            <option value="saab">Saab</option>
+                                            <option value="opel">Opel</option>
+                                            <option value="audi">Audi</option>
+                                        </select>
+                                        </p>
+
+                                    </div> 
+                                    <div >
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="inlineCheckbox1" value="option1"> 1
+                                        </label>
+                                    </div>   
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox"> 私有
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn" data-dismiss="modal">关闭</button>
+                                    <button type="button" class="btn">发布文章</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div id="user-option" class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <img id="artical-img" src="../static/images/author.jpg" th:src="@{/images/author.jpg}">
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">博客管理</a></li>
+                                    <li><a href="#">个人主页</a></li>
+                                    <li><a href="#">退出</a></li>
+                                    <!-- <li role="separator" class="divider"></li>
+                                    <li><a href="#">Separated link</a></li> -->
+                                </ul>
+                            </li>
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="layout" class="editor-body">
+        <div id="test-editormd">
+            <textarea style="display:none;">
+                [TOC]
+
+                #### Disabled options
+
+                - TeX (Based on KaTeX);
+                - Emoji;
+                - Task lists;
+                - HTML tags decode;
+                - Flowchart and Sequence Diagram;
+
+                #### Editor.md directory
+
+                    editor.md/
+                            lib/
+                            css/
+                            scss/
+                            tests/
+                            fonts/
+                            images/
+                            plugins/
+                            examples/
+                            languages/     
+                            editormd.js
+                            ...
+
+                ```html
+                &lt;!-- English --&gt;
+                &lt;script src="../dist/js/languages/en.js"&gt;&lt;/script&gt;
+
+                &lt;!-- 繁體中文 --&gt;
+                &lt;script src="../dist/js/languages/zh-tw.js"&gt;&lt;/script&gt;
+                ```
+            </textarea>
+        </div>
+    </div>
+   <a th:href="${#httpServletRequest.getScheme() + '://' + #httpServletRequest.getServerName() + ':' + #request.getServerPort()  + '/'} "
+    id="contextPath"></a>
+    <!-- #request.getContextPath() + -->
+    <!--   </div>
+    </div> -->
+   
+    <!-- editor -->
+    <script src="../static/editor/js/jquery.min.js" th:src="@{/editor/js/jquery.min.js}"></script>
+    <script src="../static/editor/js/editormd.min.js" th:src="@{/editor/js/editormd.min.js}"></script>
+    <!-- bootstrap -->
+    <script src="../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+    <script type="text/javascript">
+
+    var testEditor;
+
+
+    var contextPath = $("#contextPath").val()+"editor/lib/"
+
+    /* "http://localhost:8080/editor/lib/"*/
+    /* var contextPath =  var contextPath = $('#contextPath').attr('href');*/
+    $(function() {
+       
+        testEditor = editormd("test-editormd", {
+            width: "100%",
+            height: "100%",
+            syncScrolling: "single",
+            path: "http://localhost:8080/editor/lib/"
+
+        });
+
+        /*
+        // or
+        testEditor = editormd({
+            id      : "test-editormd",
+            width   : "90%",
+            height  : 640,
+            path    : "../lib/"
+        });
+        */
+    });
+    $('.dropdown-toggle').dropdown();
+    </script>
+</body>
+
+</html>

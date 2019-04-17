@@ -1,0 +1,32 @@
+#article-title {
+	width: 80%;
+	display: inline-block;
+	float: left;
+	margin-top: 25px;
+	margin-bottom: 10px;
+}
+#article-publish {
+	width: 7%;
+
+	margin-top: 25px;
+	margin-bottom: 10px;
+	margin-left: -130px;
+	display: inline-block;
+	color: 	#000000;
+	background-color: 	#E00000;
+}
+#user-option {
+	margin-top: -70px;
+}
+#artical-img {
+	
+	width: 60px;
+    height: 60px;
+    border-radius: 30px;
+  
+}
+
+div.modal-body select {
+
+	display: inline-block;
+}

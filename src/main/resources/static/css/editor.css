@@ -1,0 +1,75 @@
+div.editor-header {
+	width : 100% ;
+	height : 80px ;
+	background-color: #f4f4f4;
+}
+div.artical-blog{
+	display : inline-block;
+}
+#article-title {
+	width: 73% ;
+	height: 80%;
+	padding-left: 1cm;
+	padding-top: 10px; 
+	float: left;
+}
+#article-title-input {
+	font-size: 200%;
+	width :100%;
+	height:100%;
+	margin: auto;
+	border-radius: 3px;
+	border: 1px solid #f4f4f4;
+	
+}
+
+#article-publish {
+	width : 10%;
+	height: 100%;
+	margin: auto;
+	padding-top: 14px;
+
+}
+#btn-publish {
+	width : 70%;
+	height: 70%;
+	margin-left: 0cm;
+	padding: 0 16px;
+    font-size: 16px;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    white-space: nowrap;
+    background-color: #ca0c16;
+    float: left;
+}
+#article-user {
+	width : 8%;
+	height: 100%;
+	margin: auto;
+}
+#artical-img {
+	
+	width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    margin-top: -2cm; 	
+}
+
+li.user-option-li{
+	
+	list-style: none;
+
+}
+div.user-option {
+	display: none;
+	position:absolute;
+	right:100px;
+	top:10px;
+	border: 1px solid #E8E8E8;
+	width: 50px;
+	height: 150px
+}
+div.editor-body{
+	position: relative;
+}
