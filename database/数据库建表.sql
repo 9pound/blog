@@ -1,7 +1,7 @@
 
 /**/
 create table user (
-	user_id int unsigned not null auto_increment comment '用户ID' ,
+	user_id  integer unsigned not null auto_increment comment '用户ID' ,
 
 	user_name varchar(32) not null comment '用户名昵称',
 	
@@ -40,9 +40,9 @@ create table user (
 /*用户好友表*/
 
 create table friend (
-	fre_id smallint unsigned not null auto_increment comment '自增ID,系统中有多少好友',
-	user_id int unsigned not null comment '用户ID',
-	user_friend_id int unsigned not null comment '用户好友ID',
+	fre_id integer unsigned not null auto_increment comment '自增ID,系统中有多少好友',
+	user_id integer unsigned not null comment '用户ID',
+	user_friend_id integer unsigned not null comment '用户好友ID',
 	primary key (fre_id),
 	foreign key (user_id) references user(user_id),
 	foreign key (user_friend_id) references user(user_id)
@@ -50,7 +50,7 @@ create table friend (
 ) engine=Innodb default charset=utf8
 /*角色表*/
 create table role (
-	role_id tinyint unsigned not null auto_increment comment '角色ID',
+	role_id integer unsigned not null auto_increment comment '角色ID',
 	role_name varchar(32) not null comment '角色名',
 	role_valid tinyint not null default 0 comment '角色有效标志，0表示有效，1无效',
 	role_date date comment '创建日期',
@@ -59,7 +59,7 @@ create table role (
 
 /*权限表*/
 create table power(
-	power_id tinyint unsigned not null auto_increment comment '权限ID',
+	power_id integer unsigned not null auto_increment comment '权限ID',
 	power_name varchar(32) not null comment '权限名称',
 	power_url varchar(255) not null comment '可以访问的url',
 	primary key (power_id )
@@ -67,8 +67,8 @@ create table power(
 
 /*用户角色关联表*/
 create table user_role (
-	user_id int unsigned not null comment '用户ID',
-	role_id tinyint unsigned not null comment '角色ID',
+	user_id integer unsigned not null comment '用户ID',
+	role_id integer unsigned not null comment '角色ID',
 	primary key (user_id,role_id),
 	foreign key (user_id) references user(user_id),
 	foreign key (role_id) references role(role_id)	
@@ -76,8 +76,8 @@ create table user_role (
 
 /*角色权限关联表*/
 create table role_power (
-	role_id tinyint unsigned not null comment '角色ID',
-	power_id tinyint unsigned not null auto_increment comment '权限ID',
+	role_id integer unsigned not null comment '角色ID',
+	power_id integer unsigned not null auto_increment comment '权限ID',
 	primary key (role_id,power_id),
 	foreign key (role_id) references role(role_id),
 	foreign key (power_id) references power(power_id)
@@ -87,7 +87,7 @@ create table role_power (
 
 /*系统分类表*/
 create table sort (
-	sort_id int unsigned not null auto_increment comment '分类ID',
+	sort_id integer unsigned not null auto_increment comment '分类ID',
 	sort_name varchar(32) not null comment '分类名称',
 	primary key (sort_id)
 ) engine=Innodb default charset=utf8
@@ -95,16 +95,16 @@ create table sort (
 
 /*用户个人分类表*/
 create table category (
-	category_id tinyint unsigned not null auto_increment comment '个人分类ID',
+	category_id integer unsigned not null auto_increment comment '个人分类ID',
 	category_name varchar(32) not null comment '个人分类名称',
-	user_id int unsigned not null comment '分类所属用户',	
+	user_id integer unsigned not null comment '分类所属用户',	
 	primary key (category_id),
 	foreign key (user_id) references user(user_id)
 )engine=Innodb default charset=utf8 
 
 /*文章表*/
 create table article (
-	article_id int unsigned not null auto_increment comment '文章ID',
+	article_id integer unsigned not null auto_increment comment '文章ID',
 	article_time  date not null comment '发布时间',	
 	article_title varchar(128) not null comment '文章标题',
 	article_content text comment '文章的类容',	
@@ -113,9 +113,9 @@ create table article (
 	article_agree int unsigned not null default 0 comment '点赞数',
 	article_disagree int unsigned not null default 0 comment '踩数',
 	
-	category_id tinyint unsigned not null default 0 comment '文章的个人分类，0表示默认分类',
-	sort_id int unsigned not null comment '文章系统分类',
-	user_id int unsigned not null comment'文章的作者',
+	category_id integer unsigned not null default 0 comment '文章的个人分类，0表示默认分类',
+	sort_id integer unsigned not null comment '文章系统分类',
+	user_id integer unsigned not null comment'文章的作者',
 	
 	primary key (article_id),
 	foreign key (category_id) references category(category_id), 
