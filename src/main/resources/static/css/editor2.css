@@ -27,8 +27,37 @@
     margin-top: -6px;
   
 }
+#input-add-category {
+	width: 80%;
+}
+#span-add-category {
+	display: inline;
+}
+div.well {
+    margin-top: 10px;
+}
 
-div.modal-body select {
+/*div.modal-body select {
 
 	display: inline-block;
+
+
+}*/
+
+div.article-option label select{
+	float: left;
+	border-left: -100px;
+}
+
+h3{
+	float: left;
+	display: inline-block;
+}
+
+#category-select {
+	width: 80%;
+}
+#sort-select {
+	width: 87%;
+
 }

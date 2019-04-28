@@ -1,21 +1,27 @@
 package com.example.blog.entity;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.util.Date;
 
+@Document(collection =  "article")
 public class Article {
-    private Integer articleId;
+    @Id
+    private String  id;
 
-    private Date articleTime;
+    private Date articleTime = new Date();
 
     private String articleTitle;
 
-    private Integer articlePermission;
+    private Integer articlePermission = 1;
 
-    private Integer articleRead;
+    private Integer articleRead = 0;
 
-    private Integer articleAgree;
+    private Integer articleAgree = 0;
 
-    private Integer articleDisagree;
+    private Integer articleDisagree = 0;
 
     private Integer categoryId;
 
@@ -25,12 +31,19 @@ public class Article {
 
     private String articleContent;
 
-    public Integer getArticleId() {
-        return articleId;
+    @Transient
+    private String userName;
+
+    //概要
+    @Transient
+    private String outline;
+
+    public String  getId() {
+        return id;
     }
 
-    public void setArticleId(Integer articleId) {
-        this.articleId = articleId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Date getArticleTime() {
@@ -46,7 +59,7 @@ public class Article {
     }
 
     public void setArticleTitle(String articleTitle) {
-        this.articleTitle = articleTitle == null ? null : articleTitle.trim();
+        this.articleTitle = articleTitle;
     }
 
     public Integer getArticlePermission() {
@@ -110,6 +123,22 @@ public class Article {
     }
 
     public void setArticleContent(String articleContent) {
-        this.articleContent = articleContent == null ? null : articleContent.trim();
+        this.articleContent = articleContent;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getOutline() {
+        return outline;
+    }
+
+    public void setOutline(String outline) {
+        this.outline = outline;
     }
 }

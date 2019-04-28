@@ -1,6 +1,11 @@
 package com.example.blog.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Sort {
+    @Id
     private Integer sortId;
 
     private String sortName;

@@ -22,4 +22,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByUserEmailAndUserPassword(userEmail,userPassword);
 
     }
+    public User findByUserId(Integer userId){
+      return userRepository.findByUserId(userId);
+    }
 }

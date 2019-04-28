@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -31,8 +31,7 @@
     <![endif]==========-->
     <!-- editor插件加载 -->
     <link rel="stylesheet" href="../static/editor/css/editormd.preview.min.css" />
-    <link rel="stylesheet" href="../static/editor/css/editormd.css"/>
-
+    <link rel="stylesheet" href="../static/editor/css/editormd.css" />
 </head>
 
 <body class="home">
@@ -48,25 +47,22 @@
                     <article class="single-post-content row m0 post">
                         <header class="row">
                             <h5 class="post-meta">
-                                <a href="#" class="date">feb 17, 2016</a>
-                                <span class="post-author"><i>by</i><a href="#">Mark Sanders</a></span>
+                                <a href="#" class="date" th:text="${#dates.format(article.articleTime, 'yyyy-MM-dd')}">feb 17, 2016</a>
+                                <span class="post-author"><i>by</i><a href="#" th:text="${user.userName}">Mark Sanders</a></span>
                             </h5>
-                            <h2 class="post-title">Nature, in the broadest sense, is the natural, physical, or material world or universe.</h2>
+                            <h2 class="post-title" th:text="${article.articleTitle}">Nature, in the broadest sense, is the natural, physical, or material world or universe.</h2>
                             <div class="row">
                                 <h5 class="taxonomy pull-left"><i>in</i> <a href="#">image</a>, <a href="#">entertainment</a></h5>
-                                <div class="response-count pull-right"><img src="../static/images/comment-icon-gray.png" alt="">5</div>
+                                <div class="response-count pull-right"><img src="../static/images/comment-icon-gray.png" th:src="@{/images/comment-icon-gray.png}" alt="">5</div>
                             </div>
                         </header>
                         <!-- 文章内容 -->
-                        <div class="content" id="content">
-##Linux                            
+                        <div class="content" id="content" th:text="${article.articleContent}">
+                            全面、更深入的了解 Java 技术？ 这里能够给你想要的所有答案👇 给准备面试的大家，特别总结了 Java 程序员面试必备的面试题库 共含208道面试题，涵盖十九个模块：从 Java 基础到框架再到JVM，提供详细解读和代码案例，让你知其然还知其所以然。 而且啊，所总结的这 200+ 道都是必考题！ 如果这些都能看懂的话，去面试就十拿九稳了！ 以下问题的答案👇 限于篇幅答案不能全部放出，扫码查看完整原文～ 适合人群： 想要面试的初/中/高级 Java 程序员 想要查漏补缺的人 想要不断完善和扩充自己 Java技术栈的人 原本就掌握了技术却不知道怎么表达的人 有上进心，也愿意学习的人 Java面试官 说了这么多，直奔主题，这套面试必备的《Java 最常见 200+ 面试题全解析》到底优质在哪？ 一、 面试题覆盖全，且解析全面 这份面试题总内容包含了十九个模块：Java 基础、容器、多线程、反射、对象拷贝、Java Web 模块、异常、网络、设计模式、Spring/Spring MVC、Spring Boot/Spring Cloud、Hibernate、Mybatis、RabbitMQ、Kafka、Zookeeper、MySql、Redis、JVM 。 如下图所示： 二 、专业的作者，注重实战经验 作者老王，十余年编程从业经验，曾就职于 360，有着丰富的大型系统设计、开发和调优的经验，在不断探索和学习的过程中，积累了宝贵的编程经验。并且希望在自我解剖和记录的同时，可以帮助到更多的人！ 老王说：“我从 2009 年开始参加编程工作，到现在为止还觉得要学的东西很多，学习的过程也给我带来了很多成就感，成就感推动着我学习更多的技术知识。 刚开始的时候我还觉得，总结的这 200+ 道都是必考题，这么做是不是帮人“作弊”的嫌疑，最后我想通了，这是一件值得去做的事儿。 因为第一：让更多的人因此而学到了更多的知识，这是一件大好事。第二：这只是经验的高度提炼，让那些原本就掌握了技术却不知道怎么表达的人，学会如何在面试中展示自己！ 三、十元面试锦囊，助力迈进BAT 重要的是…这份Java 200+面试题全解析 居然只用10元就可以订阅了？？？ 而十元… 而十元，包含了这么多到面试题和全面的解析！ 具体面试题如下👇 一、Java 基础 1.JDK 和 JRE 有什么区别？ 2. == 和 equals 的区别是什么？ 3. 两个对象的 hashCode()相同，则 equals()也一定为 true，对吗？ 4. final 在 java 中有什么作用？ 5. java 中的 Math.round(-1.5) 等于多少？ 6. String 属于基础的数据类型吗？ 7. java 中操作字符串都有哪些类？它们之间有什么区别？ 8. String str="i"与 String str=new String(“i”)一样吗？ 9. 如何将字符串反转？ 10. String 类的常用方法都有那些？ 11. 抽象类必须要有抽象方法吗？ 12. 普通类和抽象类有哪些区别？ 13. 抽象类能使用 final 修饰吗？ 14. 接口和抽象类有什么区别？ 15. java 中 IO 流分为几种？ 16. BIO、NIO、AIO 有什么区别？ 17. Files的常用方法都有哪些？ 二、容器 18. java 容器都有哪些？ 19. Collection 和 Collections 有什么区别？ 20. List、Set、Map 之间的区别是什么？ 21. HashMap 和 Hashtable 有什么区别？ 22. 如何决定使用 HashMap 还是 TreeMap？ 23. 说一下 HashMap 的实现原理？ 24. 说一下 HashSet 的实现原理？ 25. ArrayList 和 LinkedList
                         </div>
-
-
-                        <!-- 上一节下一节 -->  
+                        <!-- 上一节下一节 -->
                         <!-- 16:9 aspect ratio -->
-                        
-                        <br>
+                        <!--  <br>
                         <ul class="pager">
                             <li>
                                 <h4>Previous Articles</h4>
@@ -78,17 +74,19 @@
                                 <h2 class="post-title"><a href="single2.html">Nature, in the broadest sense, is the natural...</a></h2>
                                 <h5 class="taxonomy pull-left"><i>in</i> <a href="#">image</a>, <a href="#">entertainment</a></h5>
                             </li>
-                        </ul>
+                        </ul> -->
                         <!-- *****************************评论表************************************* -->
                         <div class="row m0 comments">
                             <h5 class="response-count">5 comments<a href="#comment-form" class="btn btn-primary pull-right"><span>add comment</span></a></h5>
                             <!--Comments-->
                             <div class="media comment">
                                 <div class="media-left">
-                                    <a href="#"><img src="images/posts/c1.jpg" alt="" class="img-circle"></a>
+                                    <a href="#">
+                                        <img src="images/posts/c1.jpg" alt="" class="img-circle" th:src="@{/images/posts/c1.jpg}">
+                                    </a>
                                 </div>
                                 <div class="media-body">
-                                    <h4><a href="#">Mark Sanders</a></h4>
+                                    <h4><a href="#" th:text="${user.userName}">Mark Sanders</a></h4>
                                     <h5><a href="#" class="date">feb 17, 2016 at 3:30pm</a> | <a href="#" class="reply-link">reply</a></h5>
                                     <p>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
                                     <!--Comments-->
@@ -172,12 +170,17 @@
                     <!--Author Widget-->
                     <aside class="row m0 widget-author widget">
                         <div class="widget-author-inner row">
-                            <div class="author-avatar row"><a href="#"><img src="images/author.png" alt="" class="img-circle"></a></div>
+                            <div class="author-avatar row">
+                                <a href="#"><img src="images/author.png" alt="" class="img-circle">
+                                </a>
+                            </div>
                             <a href="#">
-                                <h2 class="author-name">Mark Sanders</h2>
+                                <h2 class="author-name" th:text="${user.userName}">Mark Sanders</h2>
                             </a>
                             <h5 class="author-title">small title</h5>
-                            <p>The word nature is derived from the Latin word natura, or "essential qualities, innate disposition", and in ancient times, literally meant "birth".</p>
+                            <p th:text="${user.userSays}">
+                                The word nature is derived from the Latin word natura, or "essential qualities, innate disposition", and in ancient times, literally meant "birth".
+                            </p>
                             <a href="#" class="know-more">know more</a>
                         </div>
                         <ul class="nav social-nav">
@@ -188,14 +191,26 @@
                             <li><a href="#"><i class="fa fa-envelope"></i></a></li>
                         </ul>
                     </aside>
-                    <!--Twitter Widget-->
-                    <aside class="row m0 widget widget-twitter">
-                        <div class="widget-twitter-inner">
-                            <h5 class="widget-meta"><i class="fa fa-twitter"></i>Twitter feed <a href="http://twitter.com/chivalricblog">@chivalricblog</a></h5>
-                            <div class="row tweet-texts">
-                                <p>Check out new post on my blog <a href="http://twitter.com/#natureshot">#natureshot</a> <a href="http://bit.ly/blog">http://bit.ly/blog</a></p>
+                    <!--最新文章-->
+                    <aside class="row m0 widget">
+                        <div class="widget-twitter-inner" style="background-color: #fff">
+                            <h5 class="widget-meta">
+                                最新文章
+                               <!--  <a href="">@chivalricblog</a> -->
+                            </h5>
+                            <div class="row">
+                                <p>
+                                    <div class="list-group">
+                                      <a class="list-group-item" href="#"   th:href="'/article/get?id='+${item.Id}+'&userId='+${item.userId}"   th:each="item : ${newest}" th:text="${item.articleTitle}">
+                                        <span class="badge" th:text="${item.articleRead}">14</span>
+                                        Cras justo odio
+                                      </a>      
+                                    </div>
+                                </p>
                             </div>
-                            <div class="row timepast">1 day ago</div>
+                            <div class="row" th:text="'最后一次更新:'+${#dates.format(last,'yyyy-MM-dd')}">
+                                1 day ago
+                            </div>
                         </div>
                     </aside>
                     <!--Instagram Widget-->
@@ -228,15 +243,12 @@
     <script src="../static/js/theme.js" th:src="@{/js/theme.js}"></script>
     <!-- editor插件加载js -->
     <!--  <script src="<%=request.getContextPath()%>/resources/js/jquery.min.js"></script> -->
-    
-    <script src="../static/editor/lib/marked.min.js"></script>
-    <script src="../static/editor/lib/prettify.min.js"></script>
-    <script src="../static/editor/js/editormd.min.js"></script>
-    
+    <script src="../static/editor/lib/marked.min.js" th:src="@{/editor/lib/marked.min.js}"></script>
+    <script src="../static/editor/lib/prettify.min.js" th:src="@{/editor/lib/prettify.min.js}"></script>
+    <script src="../static/editor/js/editormd.min.js" th:src="@{/editor/js/editormd.min.js}"></script>
     <script type="text/javascript">
-        editormd.markdownToHTML("content");
+    editormd.markdownToHTML("content");
     </script>
-
 </body>
 
 </html>

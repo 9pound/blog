@@ -31,7 +31,7 @@
                     <div class="navbar-header">
                     </div>
                     <div id="article-title" class="input-group input-group-lg">
-                        <input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon1">
+                        <input type="text" id="title-input" class="form-control" placeholder="输入文章标题" aria-describedby="sizing-addon1">
                     </div>
                     <!-- Button trigger modal -->
                     <button id="article-publish" type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModal">
@@ -46,51 +46,59 @@
                                     <h4 class="modal-title" id="myModalLabel">发布文章</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <div>    
-                                        <p>文章标签：</p>
-                                    </div>
-                                    <div >
-                                        <p>个人分类:
-                                        <select>
-                                            <option value="volvo">Volvo</option>
-                                            <option value="saab">Saab</option>
-                                            <option value="opel">Opel</option>
-                                            <option value="audi">Audi</option>
-                                        </select>
-                                        </p>
-                                    </div>
-                                    <div >   
-                                        <p>博客分类：
-                                        
-                                        <select>
-                                            <option value="volvo">Volvo</option>
-                                            <option value="saab">Saab</option>
-                                            <option value="opel">Opel</option>
-                                            <option value="audi">Audi</option>
-                                        </select>
-                                        </p>
+                                   <!--  <div id="article-option" class="form-group form-inline">
+                                        <label for="">标签 : </label>
+                                    </div> -->
 
-                                    </div> 
-                                    <div >
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" id="inlineCheckbox1" value="option1"> 1
-                                        </label>
-                                    </div>   
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> 私有
-                                        </label>
+                                    <div id="article-option" class="form-group form-inline">
+                                        <label for="">系统分类 : </label>
+                                        <select id="sort-select" class="form-control" >
+                                            <option value="volvo" th:each="item : ${sort}" th:value="${item.sortId}" th:text="${item.sortName}">Volvo</option>
+                                        </select>                                   
                                     </div>
+                                    <div id="article-option" class="form-group form-inline">
+                                        <label for="">个人分类 : </label>
+                                        
+                                        <select id="category-select" class="form-control" >
+                                            <option value="volvo" th:each="item : ${category}" th:value="${item.categoryId}" th:text="${item.categoryName}">Volvo
+                                        </select>
+
+                                        <button id="add-category" type="button" class="btn btn-default" aria-label="Left Align" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                        </button>                                       
+                                        <div class="collapse" id="collapseExample">
+                                          <div class="well ">
+                                            <input id="input-add-category" type="text" class="form-control" placeholder="添加分类" >
+                                                  <span id="span-add-category" class="input-group-btn">
+                                                    <button id="btn-add-category" class="btn btn-default" type="button">添加</button>
+                                                  </span>
+                                          </div>
+                                        </div> 
+                                        
+                                    </div> 
+                                     <div id="article-option" class="form-group form-inline">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="inlineCheckbox1" value="0">私有
+                                        </label>
+                                    </div> 
+                                    <!-- <div id="article-option" class="form-group form-inline">
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="0">
+                                                私有
+                                            </label>
+                                        </div>
+                                    </div>              -->                          
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn" data-dismiss="modal">关闭</button>
-                                    <button type="button" class="btn">发布文章</button>
+                                    <button type="button" class="btn" id="btn-publish">发布文章</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div id="user-option" class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <div id="user-option" class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -160,7 +168,7 @@
     <script src="../static/editor/js/editormd.min.js" th:src="@{/editor/js/editormd.min.js}"></script>
     <!-- bootstrap -->
     <script src="../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
-    <script type="text/javascript">
+    <script type="text/javascript" th:inline="javascript">
 
     var testEditor;
 
@@ -179,6 +187,7 @@
 
         });
 
+
         /*
         // or
         testEditor = editormd({
@@ -190,6 +199,76 @@
         */
     });
     $('.dropdown-toggle').dropdown();
+/*    //var getPath = $("#contextPath").attr('href')+"/articleinfo/load";
+    $(function() {
+        $.get(
+                "http://localhost:8080/articleinfo/load",
+                function(data,status){
+                    alert("数据: " + data + "\n状态: " + status);
+                }
+            );
+    
+    });*/
+
+    $(function(){
+        $("#btn-publish").click(function(){
+            //文章标题
+            var title = $('#title-input').val();
+            //系统分类
+            var sort = $('#sort-select option:selected').val();
+            //个人分类
+            var category = $('#category-select option:selected').val();
+            //文章私有
+            var status = $('input:checkbox:checked').val();
+            //文章内容
+            var content = testEditor.getMarkdown();
+            //alert(sort+'and  '+category+'and   '+status+'and   '+title+'and   '+content);
+            $.post(
+                'http://localhost:8080/article/post',
+                {
+                    'articleTitle' : title,
+                    'sortId'  : sort,
+                    'categoryId' : category,
+                    'articlePermission' : status,
+                    'articleContent' : content
+                },
+                function(data) {
+                    alert(data.message);
+                   // $('#myModal').hide();
+                });
+        });
+    });
+
+    $(function(){
+        $("#btn-add-category").click(function(){
+            var category = $("#input-add-category").val();
+            if(category == null){
+                alert("请输入要添加的分类");
+            }
+            var userId = /*[[${#session.getAttribute('user').userId}]]*/"userId";
+            $.get(
+                    'http://localhost:8080/category/post',
+                    {
+                        'category' : category,
+                        'userId' : userId
+                    },
+                    function(data,status) {
+                        if(data.status==200)
+                        {
+                            alert("添加成功！！！");
+                            $("#category-select").append("<option value="+data.Id+">"+category+"</option>"); 
+                        } else {
+                            alert("添加失败！！！");
+                        }
+
+                    }
+                );
+
+        });
+
+    });         
+
+
     </script>
 </body>
 

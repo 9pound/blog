@@ -10,7 +10,7 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="user_id")
-    private Integer userID;
+    private Integer userId;
 
     @Column(name="user_name")
     private String userName;
@@ -57,12 +57,12 @@ public class User implements Serializable {
     @Column(name="user_freeze")
     private Integer userFreeze = 0;
 
-    public Integer getUserID() {
-        return userID;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUserID(Integer userID) {
-        this.userID = userID;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getUserName() {
