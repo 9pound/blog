@@ -122,8 +122,15 @@ create table article (
 	foreign key (sort_id) references sort(sort_id),
 	foreign key (user_id) references user(user_id)
 ) engine=Innodb default charset=utf8 
-
-
+//巨幕表
+create table slide(
+	slide_id integer unsigned not null auto_increment comment '巨幕图片ID',
+	slide_img varchar(128) not null comment '图片位置',
+	slide_link varchar(128) comment '地址',
+	slide_title varchar(128) comment '巨幕标题',
+	slide_status integer unsigned default 0 comment '0：关闭 1开启',
+	primary key (slide_id)
+) engine=Innodb default charset=utf8 
 
 user_fans mediumint unsigned default 0 comment '用户粉丝数',
 

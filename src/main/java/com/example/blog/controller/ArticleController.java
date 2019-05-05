@@ -3,6 +3,7 @@ package com.example.blog.controller;
 
 
 import com.example.blog.commons.BlogResult;
+import com.example.blog.commons.Paging;
 import com.example.blog.entity.Article;
 import com.example.blog.entity.Category;
 import com.example.blog.entity.Sort;
@@ -11,8 +12,12 @@ import com.example.blog.reporsitory.CategoryRepository;
 import com.example.blog.reporsitory.SortRepository;
 import com.example.blog.service.ArticleService;
 import com.example.blog.service.UserService;
+import com.example.blog.service.impl.ArticleServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -91,4 +96,11 @@ public class ArticleController {
 
         return  modelAndView;
     }
+    @RequestMapping("/delete")
+    public void deleteArticleById(@RequestParam("id")String id){
+        articleServiceImpl.deleteArticleById(id);
+    }
+
+
+
 }

@@ -1,8 +1,18 @@
 package com.example.blog.entity;
 
-public class UserRole {
-    private Integer userId;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.Table;
+import java.io.Serializable;
 
+@Entity
+@Table(name="user_role")
+@IdClass(UserRole.class)
+public class UserRole implements Serializable {
+    @Id
+    private Integer userId;
+    @Id
     private Integer roleId;
 
     public Integer getUserId() {

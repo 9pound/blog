@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,79 +9,418 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
-
     <title>Dashboard</title>
-
     <!-- Bootstrap core CSS -->
     <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
-
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="../static/css/ie10-viewport-bug-workaround.css" th:href="@{/css/ie10-viewport-bug-workaround.css}"  rel="stylesheet">
-
+    <link href="../static/css/ie10-viewport-bug-workaround.css" th:href="@{/css/ie10-viewport-bug-workaround.css}" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="../static/css/dashboard.css" th:href="@{/css/dashboard.css}" rel="stylesheet">
-
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="../static/js/ie-emulation-modes-warning.js" th:src="@{/js/ie-emulation-modes-warning.js}"></script>
-
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-  </head>
+</head>
 
-  <body>
-
+<body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">控制台</a>
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">控制台</a>
+            </div>
         </div>
-      </div>
     </nav>
-
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-            <!-- <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li> -->
-            <li><a href="user">博客管理</a></li>
-            <li><a href="#">分类管理</a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-            <li><a href="">巨幕管理</a></li>
-            <li><a href="#">用户管理</a></li>
-            <li><a href="#">角色管理</a></li>
-            <li><a href="#">权限管理</a></li>
-          </ul>
+        <div class="row">
+            <!-- 导航 -->
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                  <li id="li-user" class="active">
+                    <a href="#">
+                      个人信息
+                    </a>
+                  </li>
+                  <li id="li-blog">
+                    <a href="#">
+                    博客管理
+                  </a>
+                  </li>
+                  <li id="li-category">
+                    <a href="#">
+                      分类管理
+                    </a>
+                  </li>
+                </ul>
+               <!--  <ul class="nav nav-sidebar">
+                    <li><a href="">巨幕管理</a></li>
+                    <li><a href="#">系统分类</a></li>
+                    <li><a href="#">用户管理</a></li>
+                    <li><a href="#">角色管理</a></li>
+                    <li><a href="#">权限管理</a></li>
+
+                </ul> -->
+            </div>
+            <!-- 个人信息 -->
+            <div id="div-user" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+              <h1 class="page-header">个人信息</h1>
+              <h2 class="sub-header"></h2>
+              <div class="row">
+              
+                 
+                  <div class="panel panel-default">
+                    <div class="panel-heading">                       
+                      <div class="span4">
+                        <img alt="140x140" src="../static/images/默认头像.jpg" th:src="@{/images/默认头像.jpg}"style="float: right;"/>
+                      </div>
+                      <h2 th:text="${user.userSays}">
+                        <br/>
+                        <br/>
+                        土地是以它的肥沃和收获而被估价的；才能也是土地，不过它生产的不是粮食，而是真理。如果只能滋生瞑想和幻想的话，即使再大的才能也只是砂地或盐池，那上面连小草也长不出来的。 —— 别林斯基
+                      </h2>
+                      <br/>
+                      <br/>
+                      <br/>
+
+                                      
+                    </div>
+                     
+                    <div class="panel-body">
+                      <dl class="dl-horizontal">
+                            <dt>
+                              昵称：
+                            </dt>
+                            <dd th:text="${user.userName}">
+                              张三
+                            </dd>
+                           
+                            <dt>
+                              性别：
+                            </dt>
+                            <dd th:text="${user.userSex}">
+                             男
+                            </dd>
+                            
+                            <dt>
+                               电子邮件
+                            </dt>
+                            <dd th:text="${user.userEmail}">
+                              12347876@qq.com
+                            </dd>
+                            
+                            <dt>
+                              出生日期
+                            </dt>
+                            <dd th:text="${user.userBirth}">
+                              1997-20-61
+                            </dd>
+                          </dl>
+
+                  
+                    </div>
+                  </div>
+              </div>
+
+            </div>
+            <!-- 博客管理 -->
+            <div id="div-blog" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+              <h1 class="page-header">博客管理</h1>
+              <h2 class="sub-header"></h2>
+              <div class="panel panel-default"  th:each="item : ${page.list}">
+                <div class="panel-body" >
+                  <h3>
+                    <strong th:text="${item.articleTitle}">
+                      Basic panel example
+                    </strong>
+                  </h3>
+                </div>
+                <div class="panel-footer">
+                  <span class="glyphicon glyphicon-calendar" aria-hidden="true" 
+                  th:text="${#dates.format(item.articleTime,'yyyy-mm-dd')}" >
+                     Panel footer
+                  </span>
+                  &nbsp;
+                  <span class="glyphicon glyphicon-eye-open" aria-hidden="true" th:text="${item.articleRead}">
+                     Panel footer
+                  </span>
+                  <a class="btn btn-danger pull-right article-delete-a" 
+                  href="#" role="button" style="margin-top: -6px;" 
+                  th:attr="article-id=${item.id}"
+                  th:href="'/article/delete?id='+${item.id}"
+                  onclick="return false;"
+                  >
+                    删除
+                  </a>
+                </div>
+              </div>
+            </div>
+            <!-- 分类管理 -->
+            <!-- 新增 -->
+            <!-- Modal -->
+            <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">添加</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                              <label for="exampleInputName2">分类名称：</label>
+                              <input id="category-input"  type="text" class="form-control" placeholder="添加分类名称">
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button id="category-save-btn"type="button" class="btn btn-primary">保存</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 编辑 -->
+            <!-- Modal -->
+            <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">修改</h4>
+                  </div>
+                  <div class="modal-body">
+                    <div class="form-group">
+                              <label for="exampleInputName2">分类名称：</label>
+                              <input id="category-update"  type="text" class="form-control" placeholder="添加分类名称">
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="category-update-btn" >Save changes</button>
+                  </div>
+                </div>
+              </div>
+            </div>
          
-        </div>
-        <!-- 博客管理 -->
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          
-        </div>
+            <div id="div-category" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+              <h1 class="page-header">分类管理</h1>
+              <h2 class="sub-header">
+                 <!-- Button trigger modal -->
+                  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal1">
+                   新增
+                  </button>
+                 <button type="button" class="btn btn-danger btn-lg">删除</button>
+              </h2>
+              <!-- 显示表格 -->
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>
+                         <input type="checkbox" value="">
+                      </th>
+                      <th>编号</th>
+                      <th>分类名称</th>
+                      <th>文章数量</th>
+                      <th>操作</th>
+                    </tr>
+                  </thead>
+                  <tbody id="category-tbody">
+                    <tr  th:each="item : ${categories}">
+                      <td>
+                         <input type="checkbox" value="${item.categoryId}">
+                      </td>
+                      <td th:text="${item.categoryId}">1,001</td>
+                      <td th:text="${item.categoryName}">Lorem</td>
+                      <td>ipsum</td>
+                      <td>
+                        <button type="button" class="btn btn-info category-editor-one-btn" data-toggle="modal" data-target="#myModal2" th:attr="editor-id=${item.categoryId}">
+                         编辑
+                        </button>
+                        <button 
+                            type="button" 
+                            class="btn btn-danger category-delete-one-btn" 
+                            th:attr="delete-id=${item.categoryId}"
+                            >
+                        删除
+                      </button>
+                      </td>
+                    </tr>        
+                  </tbody>
+                </table>
+              </div>
+              <!-- 分页 -->
+              <!-- <nav aria-label="Page navigation">
+                <ul class="pagination">
+                  <li>
+                    <a href="#" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+                  <li><a href="#">1</a></li>
+                  <li><a href="#">2</a></li>
+                  <li><a href="#">3</a></li>
+                  <li><a href="#">4</a></li>
+                  <li><a href="#">5</a></li>
+                  <li>
+                    <a href="#" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav> -->
 
-      </div>
+
+            </div>           
+              
+        </div>
     </div>
-
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="../static/js/jquery-2.2.0.min.js" th:src="@{/js/jquery-2.2.0.min.js}"></script>
-   <!-- 
+    <!-- 
     <script>window.jQuery || document.write('<script src="../static/js/vendor/jquery.min.js"><\/script>')</script> -->
     <script src="../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
     <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
     <script src="../static/js/holder.min.js" th:src="@{/js/holder.min.js}"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../static/js/ie10-viewport-bug-workaround.js" th:src="@{/js/ie10-viewport-bug-workaround.js}"></script>
-  </body>
+    <script type="text/javascript">
+      //选项卡之间切换
+      $(document).ready(function(){
+
+        $("#div-blog").hide();
+        $("#div-category").hide();
+        $("#li-user a").click(function(){
+          $("#div-user").show();
+          $("#div-blog").hide();
+          $("#div-category").hide();
+          $("#li-user").addClass('active');
+          $("#li-blog"). removeClass('active'); 
+          $("#li-category"). removeClass('active'); 
+        
+        });
+        $("#li-blog a").click(function(){
+          $("#div-blog").show();
+          $("#div-user").hide();
+          $("#div-category").hide();
+          $("#li-user").removeClass('active');
+          $("#li-blog"). addClass('active'); 
+          $("#li-category").removeClass('active'); 
+        });
+        $("#li-category a").click(function(){         
+          $("#div-category").show();
+          $("#div-user").hide();
+          $("#div-blog").hide();
+          $("#li-user").removeClass('active');
+          $("#li-blog").removeClass('active'); 
+          $("#li-category").addClass('active'); 
+        });
+
+      });
+      var user = /*[[${session.user}]]*/ null;
+      //删除文章
+      $(document).ready(function(){
+        
+        
+         $("a.article-delete-a").click(function(){
+          alert('删除成功！！！');
+          $(this).parent().parent().hide();
+         });
+      });
+     
+      //添加分类
+      $(document).ready(function(){
+        $("#category-save-btn").click(function(){
+            
+            var text = $("#category-input").val();
+
+            alert(text);
+          $.get(
+            'http://localhost:8080/category/post',
+            {
+              'categoryName' : text
+            },
+            function(data,status) {
+                        if(data.status==200)
+                        {
+                            alert("添加成功！！！");
+                            
+                        } else {
+                            alert("添加失败！！！");
+                        }           
+                      }
+          );
+        });
+      });
+      //编辑按钮
+     
+       $(document).ready(function(){
+         var editor_id; 
+         var $currentTd;
+         $("button.category-editor-one-btn").click(function(){
+          var categoryId = $(this).attr("editor-id");
+          $currentTd = $(this).parent().parent().children('td').eq(2)
+          var categoryName = $currentTd.text();
+          alert(categoryName);
+          editor_id = categoryId;
+          //alert(categoryName + categoryId);
+          $("#category-update").val(categoryName);
+
+         });
+         
+         $("#category-update-btn").click(function(){
+           
+            var text = $("#category-update").val();
+          $.get(
+            'http://localhost:8080/category/update',
+            {
+              'categoryName' : text,
+              'categoryId' : editor_id
+            },
+            function(data,status) {
+                        if(data.status==200)
+                        {
+                            alert("更新成功！！！");
+                           $currentTd.text(text);
+                        } else {
+                            alert("更新失败！！！");
+                        }           
+                      }
+          );
+        });
+       });
+     
+        
+    
+      //删除一个元素的按钮
+      $(document).ready(function(){
+          $("button.category-delete-one-btn").click(function(){
+            var categoryId = $(this).attr("delete-id");
+            $.get(
+              'http://localhost:8080/category/delete',
+              {
+                "categoryId" : categoryId
+              }
+            );
+            alert("删除成功");
+            $(this).parent().parent().remove();
+
+          });
+
+      });
+
+      
+    </script>
+</body>
+    
 </html>

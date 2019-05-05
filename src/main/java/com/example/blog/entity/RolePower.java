@@ -1,8 +1,16 @@
 package com.example.blog.entity;
 
-public class RolePower {
-    private Integer roleId;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
 
+@Entity
+@Table(name="role_power")
+public class RolePower implements Serializable {
+    @Id
+    private Integer roleId;
+    @Id
     private Integer powerId;
 
     public Integer getRoleId() {

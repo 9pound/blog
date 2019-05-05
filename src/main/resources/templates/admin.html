@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+    <title>Dashboard</title>
+    <!-- Bootstrap core CSS -->
+    <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="../static/css/ie10-viewport-bug-workaround.css" th:href="@{/css/ie10-viewport-bug-workaround.css}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="../static/css/dashboard.css" th:href="@{/css/dashboard.css}" rel="stylesheet">
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="../static/js/ie-emulation-modes-warning.js" th:src="@{/js/ie-emulation-modes-warning.js}"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="../static/css/admin.css" th:href="@{/css/admin.css}" /> 
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">控制台</a>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- 导航 -->
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                    <li><a id="user" href="#" class="option-li">用户管理</a></li>
+                    <li><a id="role" href="#" class="option-li">角色管理</a></li>
+                   <!--  <li><a id="power" href="#" class="option-li">权限管理</a></li> -->
+                    <li><a id="sort" href="#" class="option-li">系统分类</a></li>
+                    <li><a id="slide" href="#" class="option-li">巨幕管理</a></li>
+                </ul>
+            </div>
+            <!-- 个人信息 -->
+            
+
+            <div id="div-user" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main div-user div-option">
+                <h1 class="page-header">用户管理</h1>
+                <h2 class="sub-header"></h2>
+                <table id="table-user" class="table table-striped user-table">
+                  <thead>
+                        <tr>
+                            <th>
+                              <input type="checkbox" value="">
+                            </th>
+                            <th>
+                             编号 
+                            </th>
+                            <th>
+                             昵称
+                            </th>
+                            <th>
+                             电子邮件
+                            </th>
+                            <th>
+                              手机号
+                            </th>
+                            <th>
+                              注册时间
+                            </th>
+                            <th>
+                              身份
+                            </th>
+                            <th>
+                              是否冻结
+                            </th>
+                            <th>
+                              操作
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="item : ${users}">
+                            <td>
+                               <input type="checkbox" value="">
+                            </td>
+                            <td th:text="${item.userId}">
+                                TB - Monthly
+                            </td>
+                            <td th:text="${item.userName}">
+                                01/04/2012
+                            </td>
+                            <td th:text="${item.userEmail}">
+                                Default
+                            </td>
+                            <td th:text="${item.userPhone}">
+                                Default
+                            </td>
+                            <td th:text="${item.userId}">
+                                Default
+                            </td>
+                            <td th:text="${item.userRegisterTime}">
+                                Default
+                            </td>
+                            <td th:text="${item.userFreeze}">
+                                Default
+                            </td>
+                            <td>
+                              <button type="button" class="btn btn-success">
+                                解除
+                              </button>
+                              <button type="button" class="btn btn-danger">
+                                 冻结
+                              </button>
+                              <button id="user" type="button" class="btn btn-danger delete-one">
+                                 删除
+                              </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- 角色管理 -->
+            <!-- Modal -->
+            <div class="modal fade" id="myModal-role" tabindex="-1" role="dialog" aria-labelledby="   myModalLabel">
+               <div class="modal-dialog" role="document">
+                 <div class="modal-content">
+                   <div class="modal-header">
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span    aria-hidden="true">&times;</span></button>
+                     <h4 class="modal-title" id="myModalLabel">添加角色</h4>
+                   </div>
+                   <div class="modal-body">
+                     ...
+                   </div>
+                   <div class="modal-footer">
+                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                     <button type="button" class="btn btn-primary">保存</button>
+                   </div>
+                 </div>
+               </div>
+             </div>
+            <div id="div-role" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main div-role div-option">
+                <h1 class="page-header">角色管理</h1>
+                <h2 class="sub-header">
+                  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal-role">
+                        添加
+                    </button>
+                    <button type="button" class="btn btn-danger btn-lg">
+                        删除
+                    </button>
+                </h2>
+                <table id="table-role" class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th><input type="checkbox" value=""></th>
+                        <th>编号</th>
+                        <th>角色名</th>
+                        <th>是否冻结</th>
+                        <th>状态</th>
+                        <th>操作</th>   
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="item : ${roles}">
+                            <td>
+                               <input type="checkbox" value="">
+                            </td>
+                            <td th:text="${item.roleId}">
+                                TB - Monthly
+                            </td>
+                            <td th:text="${item.roleName}">
+                                01/04/2012
+                            </td>
+                            <td th:text="${item.roleValid}">
+                                Default
+                            </td>
+                            <td th:text="${item.roleDate}">
+                                Default
+                            </td>
+                            <td>
+                              <button type="button" class="btn btn-primary">
+                                 编辑
+                               </button>
+                               <button id="role" type="button" class="btn btn-danger delete-one"
+                                th:attr="deleteId=${item.roleId}"
+                               >
+                                 删除
+                               </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- 权限管理 -->
+      <!--       <div id="div-power" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main div-power div-option">
+                <h1 class="page-header">权限管理</h1>
+                <h2 class="sub-header"></h2>
+                <table id="table-power" class="table table-striped user-table">
+                  <thead>
+                      <tr>
+                        <th><input type="checkbox" value=""></th>
+                        <th>编号</th>
+                        <th>权限名称</th>
+                        <th>可访问的URl</th>
+                        <th>操作</th>   
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                               <input type="checkbox" value="">
+                            </td>
+                            <td>
+                                TB - Monthly
+                            </td>
+                            <td>
+                                01/04/2012
+                            </td>
+                            <td>
+                                Default
+                            </td>
+                            <td>
+                               <button type="button" class="btn btn-primary">
+                                 编辑
+                               </button>
+                               <button type="button" class="btn btn-danger">
+                                 删除
+                               </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div> -->
+             
+            <!--系统分类管理 -->
+            <!-- Button trigger modal -->
+            <!-- Modal -->
+            <div class="modal fade" id="myModal-sort" tabindex="-1" role="dialog" aria-labelledby="   myModalLabel">
+               <div class="modal-dialog" role="document">
+                 <div class="modal-content">
+                   <div class="modal-header">
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span    aria-hidden="true">&times;</span></button>
+                     <h4 class="modal-title" id="myModalLabel">添加系统分类</h4>
+                   </div>
+                   <div class="modal-body">
+                     ...
+                   </div>
+                   <div class="modal-footer">
+                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                     <button type="button" class="btn btn-primary">保存</button>
+                   </div>
+                 </div>
+               </div>
+             </div>
+              
+            <div id="div-sort" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main div-sort div-option">
+                <h1 class="page-header">系统分类</h1>
+                <h2 class="sub-header">
+                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal-sort">
+                        添加
+                    </button>
+                    <button  type="button" class="btn btn-danger btn-lg">
+                        删除
+                    </button>
+
+                </h2>
+                <table id="table-sort" class="table table-striped user-table">
+                  <thead>
+                      <tr>
+                        <th><input type="checkbox" value=""></th>
+                        <th>编号</th>
+                        <th>分类名称</th>
+                        <th>操作</th>   
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="item : ${sorts}">
+                            <td>
+                               <input type="checkbox" value="">
+                            </td>
+                            <td th:text="${item.sortId}">
+                                TB - Monthly
+                            </td>
+                            <td th:text="${item.sortName}">
+                                01/04/2012
+                            </td>
+                           
+                            <td>
+                               <button type="button" class="btn btn-primary">
+                                 编辑
+                               </button>
+                               <button id="sort" type="button" class="btn btn-danger delete-one"
+                                th:attr="deleteId=${item.sortId}">
+                               >
+                                 删除
+                               </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--巨幕管理-->
+            <div id="div-slide" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main div-slide div-option">
+                <h1 class="page-header">系统分类</h1>
+                <h4 class="sub-header">
+                    <form method="post" action="/slide/upload">
+                      <div class="form-group">
+                        <label for="exampleInputFile">图片位置：</label>
+                        <input type="file" id="exampleInputFile" />
+                      </div>                    
+                      <button type="submit" class="btn btn-default">提交</button>
+                    </form>
+
+                </h4>
+                <div class="panel panel-default">
+                  <!-- Default panel contents -->
+                  <div class="panel-heading">
+                     <img src="../static/images/slideshow/5ed4de078a11a9878e5aa6f21eee1e15.jpg" 
+                       />
+                  </div>
+
+                  <!-- Table -->
+                  <table class="table">
+                    <tr>
+                      <td>
+                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="">
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                      </td>
+                      <td>
+                        <button id="slide-img-btn" type="button" class="btn btn-default btn-lg btn-block">未选择</button>
+                        <button id="slide-img-btn" type="button" class="btn btn-danger btn-lg btn-block">删除</button>
+                      </td>
+                    </tr>
+                  </table>
+                
+               
+                   
+               
+
+               
+               
+            </div>
+
+        </div>
+    </div>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../static/js/jquery-2.2.0.min.js" th:src="@{/js/jquery-2.2.0.min.js}"></script>
+    <!-- 
+    <script>window.jQuery || document.write('<script src="../static/js/vendor/jquery.min.js"><\/script>')</script> -->
+    <script src="../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script src="../static/js/holder.min.js" th:src="@{/js/holder.min.js}"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../static/js/ie10-viewport-bug-workaround.js" th:src="@{/js/ie10-viewport-bug-workaround.js}"></script>
+    <script type="text/javascript">
+      
+      $(document).ready(function(){
+          //隐藏所有的元素
+          $(".div-option").hide();
+          //点击选项时显示元素
+          $("a.option-li").click(function(){
+            var currentOption = $(this).attr("id");
+            alert(currentOption);
+            changeOption(currentOption);
+          });
+          //加载表头信息
+          //loadThead();
+      });
+      //菜单切换
+      function changeOption(option){
+        $(".div-option").hide();
+        $("#div-"+option).show();
+      };      
+     
+     $(document).ready(function(){
+     $("#slide-img-btn").click(function(){
+      if($(this).hasClass("btn-default")){
+         $(this).removeClass("btn-default");
+         $(this).addClass("btn-primary");
+         $(this).text("已选择");
+      } else {
+         $(this).removeClass("btn-primary");
+         $(this).addClass("btn-default");
+         $(this).text("未选择");
+      }
+     });
+    });
+    //所有功能的删除单个元素的方法
+    $(document).ready(function(){
+      $("button.delete-one").click(function(){
+        var bool = confirm("你确认要删除吗？");
+        if(bool==false)
+          return ;
+        var option = $(this).attr("id");
+        alert(option);
+        var id = $(this).attr("deleteId");
+        $.get(
+            "http://localhost:8080/"+option+"/delete",
+            {
+              "id" = id 
+            },
+            function(data){
+              if(data.status==200)
+              {
+                  alert("删除成功！！！");
+                  $(this).parent().parent().remove();
+                 
+              } else {
+                  alert("删除失败！！！");
+              }         
+            }
+
+          );
+        
+      });
+    });
+
+    /*  //加载Thead
+      function loadThead(){      
+          $("#table-role").empty().append("<thead><tr>"+
+            '<th><input type="checkbox" value=""></th>'+
+            "<th>角色ID</th>"+
+            "<th>角色名</th>"+
+            "<th>是否冻结</th>"+
+            "<th>状态</th>"+
+            "<th>操作</th>"+
+            "</tr></thead>");
+
+          $("#table-power").empty().append("<thead><tr>"+
+            '<th><input type="checkbox" value=""></th>'+
+            "<th>编号</th>"+
+            "<th>权限名称</th>"+
+            "<th>可以访问的URl</th>"+
+             "<th>操作</th>"+
+            "</tr></thead>");
+   
+          $("#table-sort").empty().append("<thead><tr>"+
+            '<th><input type="checkbox" value=""></th>'+
+            "<th>编号</th>"+
+            "<th>分类名称</th>"+
+            "<th>操作</th>"+
+            "</tr></thead>");     
+      }
+      //加载tbody
+      function loadTbody(option,data){
+          var text;
+          var listTd = data.list;
+
+          $("#table-"+optoin).append(
+
+            );
+      }
+      //根据返回的List拼接tbody
+      splitTd(list){
+      }
+      
+      //加载角色数据
+      function loadUserData(currenPage,size,option){
+        $.get( "http://localhost:8080/"+option+"/paging",
+              {
+                "currenPage": currenPage,
+                'size' : size
+              },
+              function(data){
+
+              }
+
+          );
+
+      }
+*/
+
+
+    </script>
+</body>
+
+</html>

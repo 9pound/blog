@@ -57,6 +57,18 @@ public class User implements Serializable {
     @Column(name="user_freeze")
     private Integer userFreeze = 0;
 
+    //用户角色
+    @Transient
+    private String role;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public Integer getUserId() {
         return userId;
     }

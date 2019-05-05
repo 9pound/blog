@@ -15,15 +15,15 @@
       <script src=" https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"> </script> <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js">
     </script>
     <![endif]-->
-    <link rel="stylesheet" href="../static/css/register.css">
+    <link rel="stylesheet" href="../static/css/register.css" th:href="@{/css/register.css}">
 
 
 </head>
-<body background="../static/images/战地5.jpg">
+<body background="../static/images/战地5.jpg" th:background="@{/images/战地5.jpg}">
     <div class="container">
         <div class="row">
             <div  class="col-md-4 col-md-offset-4">
-                <form  id="register-form" action="#" th:action="@{/user/register}" >
+                <form  id="register-form" action="#"  method="post" th:action="@{/user/register}" >
                     <h1 class="center" >注册</h1>
                     <fieldset>
                         <div class="form-group">
@@ -39,7 +39,7 @@
     						<input type="password" class="form-control" id="InputPassword" placeholder="不超过20位的数字、字母、与字符的组合" name="user_password">
  						</div>
  						<div class="form-group">
-   							<label for="InputPasswordAgain">密码</label>
+   							<label for="InputPasswordAgain">确认密码</label>
     						<input type="password" class="form-control" id="InputPasswordAgain" placeholder="不超过20位的数字、字母、与字符的组合" name="user_password_again">
  						</div>
 
