@@ -43,7 +43,7 @@ public class User implements Serializable {
     private String userAddress;
 
     @Column(name="user_img")
-    private Byte[] userImg ;
+    private String userImg ;
 
     @Column(name="user_mark")
     private Integer userMark=0;
@@ -59,7 +59,7 @@ public class User implements Serializable {
 
     //用户角色
     @Transient
-    private String role;
+    private String role="普通用户";
 
     public String getRole() {
         return role;
@@ -157,11 +157,11 @@ public class User implements Serializable {
         this.userAddress = userAddress;
     }
 
-    public Byte[] getUserImg() {
+    public String getUserImg() {
         return userImg;
     }
 
-    public void setUserImg(Byte[] userImg) {
+    public void setUserImg(String userImg) {
         this.userImg = userImg;
     }
 

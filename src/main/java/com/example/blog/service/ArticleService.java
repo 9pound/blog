@@ -15,5 +15,7 @@ public interface ArticleService {
       Page<Article> pagingArticle(Integer userId, PageRequest pageRequest);
       void deleteArticleById(String Id);
       List<Article> findAll();
+      List<Article> findAllOrderByArticleRead();
+      List<Article> findAllOrOrderByArticleTime();
 
 }

@@ -9,10 +9,11 @@ public class Slide {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer slideId;
-    private String slideImg;
-    private String slideLink;
-    private String slideTitle;
-    private Integer slideStatus;
+    private String slideImg="/images/featured-posts/1.jpg";
+    private String slideLink="管理员很懒还没有添加...";
+    private String slideTitle="管理员很懒还没有添加...";
+    //0为开启，1为关闭
+    private Integer slideStatus=0;
 
     public Integer getSlideId() {
         return slideId;

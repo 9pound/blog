@@ -6,5 +6,6 @@ import org.springframework.data.repository.Repository;
 
 public interface UserRoleRepository extends Repository<UserRole,Integer> {
     UserRole findByUserId(Integer userId);
-
+    UserRole save(UserRole userRole);
+    void deleteByUserId(Integer id);
 }

@@ -8,4 +8,6 @@ public interface SlideService {
     List<Slide> getAll();
     void delete(Integer slideId);
     Slide save(Slide slide);
+    Slide findBySlideId(Integer slideId);
+    List<Slide> findAllBySlideStatus(Integer slideStatus);
 }

@@ -209,7 +209,7 @@
             );
     
     });*/
-
+//保存文章
     $(function(){
         $("#btn-publish").click(function(){
             //文章标题
@@ -217,7 +217,7 @@
             //系统分类
             var sort = $('#sort-select option:selected').val();
             //个人分类
-            var category = $('#category-select option:selected').val();
+            var category =$('#category-select option:selected').val();
             //文章私有
             var status = $('input:checkbox:checked').val();
             //文章内容
@@ -234,7 +234,7 @@
                 },
                 function(data) {
                     alert(data.message);
-                   // $('#myModal').hide();
+                  
                 });
         });
     });
@@ -255,7 +255,7 @@
                         if(data.status==200)
                         {
                             alert("添加成功！！！");
-                            $("#category-select").append("<option value="+data.Id+">"+category+"</option>"); 
+                            $("#category-select").append("<option value="+data.idInt+">"+category+"</option>"); 
                         } else {
                             alert("添加失败！！！");
                         }

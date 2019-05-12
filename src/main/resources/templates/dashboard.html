@@ -60,38 +60,148 @@
                       分类管理
                     </a>
                   </li>
-                </ul>
-               <!--  <ul class="nav nav-sidebar">
-                    <li><a href="">巨幕管理</a></li>
-                    <li><a href="#">系统分类</a></li>
-                    <li><a href="#">用户管理</a></li>
-                    <li><a href="#">角色管理</a></li>
-                    <li><a href="#">权限管理</a></li>
-
-                </ul> -->
+                </ul>              
             </div>
             <!-- 个人信息 -->
+            <!-- 修改个人信息 -->
+            <div class="modal fade" id="user-editor-model" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">修改个人信息</h4>
+                  </div>
+                  <div class="modal-body">
+                      <form id="user-editor-form" class="well"  >
+                        <!-- ID -->
+                        <input type="hidden" class="form-control"
+                          name="userId"
+                          th:value="${user.userId}"
+                        >
+                        <input type="hidden" class="form-control"
+                          name="userEmail"
+                          th:value="${user.userEmail}"
+                        >
+                        <input type="hidden" class="form-control"
+                          name="userPassword"
+                          th:value="${user.userPassword}"
+                        >
+                        <!-- 昵称  -->
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">昵称</label>
+                          <input type="text" class="form-control" id="exampleInputEmail1" placeholder="昵称"
+                          name="userName"
+                          th:value="${user.userName}"
+                          >
+                        </div>
+                        <!-- 性别 -->
+                        <div class="form-group">
+                          <label for="exampleInputEmail2">性别</label>
+                          <select class="form-control" id="exampleInputEmail2" 
+                          name="userSex"
+                          th:value="${user.userSex}"
+                          >
+                            <option value="男" >男</option>
+                            <option value="女" >女</option>
+                          </select>
+                        </div>
+                        <!-- 手机号  -->
+                        <div class="form-group">
+                          <label for="exampleInputEmail3">电话号码</label>
+                          <input type="tel" class="form-control" id="exampleInputEmail3" placeholder="电话号码"
+                          name="userPhone"
+                          th:value="${user.userPhone}"
+                          >
+                        </div>
+                        <!-- 出生日期  -->
+                        <div class="form-group">
+                          <label for="exampleInputEmail4">出生日期</label>
+                          <input type="date" class="form-control" id="exampleInputEmail4" placeholder="出生日期"
+                          name="userBirthday"
+                          th:text="${#dates.format(user.userBirth, 'yyyy-mm-dd')}"
+                          >
+                        </div>
+                         <!-- 用户地址  -->
+                        <div class="form-group">
+                          <label for="exampleInputEmail5">用户地址</label>
+                          <input type="text" class="form-control" id="exampleInputEmail5" placeholder="用户地址"
+                          name="userAddress"
+                          th:value="${user.userAddress}"
+                          >
+                        </div>
+                        <!-- 个性签名  -->
+                        <div class="form-group">
+                          <label for="exampleInputEmail6">个性签名</label>
+                          <textarea  class="form-control" id="exampleInputEmail6" placeholder="个性签名"
+                          name="userSays"
+                          th:text="${user.userSays}"
+                          >
+                          </textarea>
+                        </div>
+                      
+                       <!--  <button type="submit" class="btn btn-default">Submit</button> -->
+                      </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button id="user-save-close"type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button id="user-save-btn" type="button" class="btn btn-primary">保存</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+           
+            <!-- 上传头像 -->
+            <!-- Modal -->
+            <div class="modal fade" id="upload-user-img" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">上传头像</h4>
+                  </div>
+                  <div class="modal-body">
+                   
+                   <form id="upload-img-form" enctype="multipart/form-data">                      
+                      <div class="form-group">
+                        <label for="exampleInputFile">选择文件</label>
+                        <input type="file" id="exampleInputFile" name="portrait" />
+                      </div>
+                      <button id="upload-img-btn"type="submit" class="btn btn-default">提交</button>
+                    </form>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+
             <div id="div-user" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
               <h1 class="page-header">个人信息</h1>
-              <h2 class="sub-header"></h2>
+              <h2 class="sub-header">
+                  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#user-editor-model">
+                  修改
+                  </button>
+                  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#upload-user-img">
+                    上传头像
+                  </button>
+              </h2>
               <div class="row">
               
                  
                   <div class="panel panel-default">
+                    
                     <div class="panel-heading">                       
-                      <div class="span4">
-                        <img alt="140x140" src="../static/images/默认头像.jpg" th:src="@{/images/默认头像.jpg}"style="float: right;"/>
+                      
+                      <div class="user-say-div">
+                        <h2 th:text="${user.userSays}" style="float: inline;">
+                          <br/>
+                          <br/>
+                          土地是以它的肥沃和收获而被估价的；才能也是土地，不过它生产的不是粮食，而是真理。如果只能滋生瞑想和幻想的话，即使再大的才能也只是砂地或盐池，那上面连小草也长不出来的。 —— 别林斯基
+                         
+                        </h2>
                       </div>
-                      <h2 th:text="${user.userSays}">
-                        <br/>
-                        <br/>
-                        土地是以它的肥沃和收获而被估价的；才能也是土地，不过它生产的不是粮食，而是真理。如果只能滋生瞑想和幻想的话，即使再大的才能也只是砂地或盐池，那上面连小草也长不出来的。 —— 别林斯基
-                      </h2>
-                      <br/>
-                      <br/>
-                      <br/>
-
-                                      
+                      <div class="user-img-div">
+                        <img alt="140x140" src="../static/images/默认头像.jpg" th:src="@{${user.userImg}==null?'/images/默认头像.jpg':${user.userImg}}" />
+                      </div>                              
                     </div>
                      
                     <div class="panel-body">
@@ -217,7 +327,7 @@
                   <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal1">
                    新增
                   </button>
-                 <button type="button" class="btn btn-danger btn-lg">删除</button>
+                 <button id="category-delete-all" type="button" class="btn btn-danger btn-lg">删除</button>
               </h2>
               <!-- 显示表格 -->
               <div class="table-responsive">
@@ -225,22 +335,22 @@
                   <thead>
                     <tr>
                       <th>
-                         <input type="checkbox" value="">
+                         <input id="sort-checkall" type="checkbox" >
                       </th>
                       <th>编号</th>
                       <th>分类名称</th>
-                      <th>文章数量</th>
+                     <!--  <th>文章数量</th> -->
                       <th>操作</th>
                     </tr>
                   </thead>
                   <tbody id="category-tbody">
                     <tr  th:each="item : ${categories}">
                       <td>
-                         <input type="checkbox" value="${item.categoryId}">
+                         <input type="checkbox" class="sort_check_item" th:attr="deleteId=${item.categoryId}">
                       </td>
                       <td th:text="${item.categoryId}">1,001</td>
                       <td th:text="${item.categoryName}">Lorem</td>
-                      <td>ipsum</td>
+                    <!--   <td>ipsum</td> -->
                       <td>
                         <button type="button" class="btn btn-info category-editor-one-btn" data-toggle="modal" data-target="#myModal2" th:attr="editor-id=${item.categoryId}">
                          编辑
@@ -348,12 +458,13 @@
           $.get(
             'http://localhost:8080/category/post',
             {
-              'categoryName' : text
+              'category' : text
             },
             function(data,status) {
                         if(data.status==200)
                         {
                             alert("添加成功！！！");
+                            window.location.reload();
                             
                         } else {
                             alert("添加失败！！！");
@@ -418,8 +529,76 @@
           });
 
       });
+      //个人信息编辑按钮
+      $(document).ready(function(){
+        $("#user-save-btn").click(function(){  
+           $.post(
+              'http://localhost:8080/user/editor',
+              $("#user-editor-form").serialize(),
+              function(date){
+                 if(data.status==200)
+                  {
+                        alert("操作成功！！！");
+                        $("#user-save-close").click();
+                         window.location.reload();
+                        $("#li-user a").click();
 
-      
+                    } else {
+                        alert("操作失败！！！");
+                    }     
+                  }
+            ); 
+        });
+      });
+      //分类的全选与全部选
+      $("#sort-checkall").click(function(){
+      $(".sort_check_item").prop("checked",$(this).prop("checked"));
+       });
+      //删除所有
+      $("#category-delete-all").click(function(){
+        var del_idstr="-";
+        if(confirm("确认删除？")){
+           
+            $.each($(".sort_check_item:checked"),function(){
+              //拼接id字符串
+              del_idstr += $(this).attr("deleteId")+"-";
+              //删除改行
+              $(this).parent().parent().remove();
+            });
+            
+            $.post(
+                "http://localhost:8080/category/deleteAll",
+                {
+                  "ids" : del_idstr 
+                }
+            );
+            window.location.reload();
+          }
+
+      });
+      //图片上传
+      $("#upload-img-btn").click(function(){
+          $.ajax({
+              url: 'http://localhost:8080/user/upload',
+              type: 'POST',
+              cache: false,
+              data: new FormData($("#upload-img-form")[0]),
+              processData: false,
+              contentType: false,
+              success:function (data) {
+                  if(data.status==200)
+                  {
+                        alert("操作成功！！！");
+                        window.location.reload();
+
+                    } else {
+                        alert("操作失败！！！");
+                    }     
+
+                }
+            });  
+            return false;  
+      });
     </script>
 </body>
     

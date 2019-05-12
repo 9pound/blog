@@ -103,3 +103,17 @@ body {
   display: inline-block;
   border-radius: 50%;
 }
+/*
+ * 自定义样式
+*/
+
+div.user-say-div{
+  width: 70%;
+  height: 300px;
+}
+div.user-img-div{
+  width: 20%;
+  float: right;
+  margin-top: -300px;
+  margin-left: -10px;
+}

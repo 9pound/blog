@@ -27,4 +27,10 @@ public class SlideServiceImpl implements SlideService {
     public Slide save(Slide slide) {
         return slideRepository.save(slide);
     }
+    public Slide findBySlideId(Integer slideId){
+        return slideRepository.findBySlideId(slideId);
+    }
+    public List<Slide> findAllBySlideStatus(Integer slideStatus){
+        return slideRepository.findAllBySlideStatus(slideStatus);
+    }
 }

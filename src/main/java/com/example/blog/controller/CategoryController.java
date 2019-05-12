@@ -20,13 +20,15 @@ public class CategoryController {
 
     @RequestMapping(value="/post")
     @ResponseBody
-    public BlogResult addCategory(Category category, HttpSession session){
+    public BlogResult addCategory(@RequestParam("category") String categoryName, HttpSession session){
         User user = (User)session.getAttribute("user");
+        Category category = new Category();
         category.setUserId(user.getUserId());
+        category.setCategoryName(categoryName);
         Category result = categoryServiceImpl.addCategory(category);
         BlogResult blogResult = new BlogResult();
         if (result.getCategoryId() != null) {
-            blogResult.setId(result.getCategoryId().toString());
+            blogResult.setIdInt(result.getCategoryId());
             blogResult.setMessage("保存成功！！！");
             blogResult.setStatus(200);
         } else {
@@ -50,6 +52,13 @@ public class CategoryController {
             return new BlogResult("更新成功", 200);
         } else {
             return  new BlogResult("更新失败",500);
+        }
+    }
+    @RequestMapping("/deleteAll")
+    public void deleteAll(@RequestParam("ids") String ids){
+        String [] categoryIds = ids.split("-");
+        for (int i =1; i<categoryIds.length;i++){
+            categoryServiceImpl.deleteCategory(Integer.parseInt(categoryIds[i]));
         }
     }
 

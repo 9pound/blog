@@ -3,7 +3,8 @@ package com.example.blog.commons;
 public class BlogResult {
     private String message;
     private Integer status;
-    private String Id;
+    private String id;
+    private Integer idInt;
 
     public BlogResult() {
     }
@@ -30,10 +31,18 @@ public class BlogResult {
     }
 
     public String getId() {
-        return Id;
+        return id;
     }
 
     public void setId(String id) {
-        Id = id;
+        this.id = id;
+    }
+
+    public Integer getIdInt() {
+        return idInt;
+    }
+
+    public void setIdInt(Integer idInt) {
+        this.idInt = idInt;
     }
 }

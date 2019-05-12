@@ -3,20 +3,18 @@ package com.example.blog.controller;
 
 
 import com.example.blog.commons.BlogResult;
-import com.example.blog.commons.Paging;
-import com.example.blog.entity.Article;
-import com.example.blog.entity.Category;
-import com.example.blog.entity.Sort;
-import com.example.blog.entity.User;
+import com.example.blog.entity.*;
 import com.example.blog.reporsitory.CategoryRepository;
+import com.example.blog.reporsitory.EsBlogRepository;
 import com.example.blog.reporsitory.SortRepository;
 import com.example.blog.service.ArticleService;
+import com.example.blog.service.CommentService;
 import com.example.blog.service.UserService;
-import com.example.blog.service.impl.ArticleServiceImpl;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+
 import org.springframework.stereotype.Controller;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,6 +37,10 @@ public class ArticleController {
     private SortRepository sortRepository;
     @Autowired
     private CategoryRepository categoryRepository;
+    @Autowired
+    private CommentService commentServiceImpl;
+    @Autowired
+    private EsBlogRepository esBlogRepository;
 
     @RequestMapping("/editor")
     public ModelAndView ifLogin(HttpServletRequest request){
@@ -70,11 +72,13 @@ public class ArticleController {
         System.out.println(newArticle.getId());
         BlogResult result = new BlogResult();
         if(newArticle != null){
+            esBlogRepository.save(new EsBlog(newArticle));
             result.setMessage("文章保存成功");
             result.setStatus(200);
         }
         return result;
     }
+    //阅读某篇文章
     @RequestMapping(value="/get")
     public ModelAndView getArticle(@RequestParam("id")String id,
                                    @RequestParam("userId")Integer userId
@@ -87,11 +91,15 @@ public class ArticleController {
         //获得作者最新的几片文章
         User user = userServiceImpl.findByUserId(userId);
         List<Article> newest = articleServiceImpl.getNewestArticle(userId);
+        //获得文章所有评论
+        List<Comment> comments = commentServiceImpl.getAllCommentByArticleId(article.getId());
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("user",user);
         modelAndView.addObject("article",article);
         modelAndView.addObject("newest",newest);
         modelAndView.addObject("last",newest.get(0).getArticleTime());
+        modelAndView.addObject("comments",comments);
         modelAndView.setViewName("single");
 
         return  modelAndView;
@@ -99,6 +107,23 @@ public class ArticleController {
     @RequestMapping("/delete")
     public void deleteArticleById(@RequestParam("id")String id){
         articleServiceImpl.deleteArticleById(id);
+    }
+
+    @RequestMapping("/popular")
+    public ModelAndView popular(){
+        List<Article> article = articleServiceImpl.findAllOrderByArticleRead();
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("article",article);
+        modelAndView.setViewName("popular_result");
+        return modelAndView;
+    }
+    @RequestMapping("/newest")
+    public ModelAndView  newest(Model model){
+        List<Article> article = articleServiceImpl.findAllOrOrderByArticleTime();
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("article",article);
+        modelAndView.setViewName("newest_result");
+        return modelAndView;
     }
 
 

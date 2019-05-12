@@ -9,6 +9,7 @@ import com.example.blog.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -38,7 +39,8 @@ public class ArticleServiceImpl implements ArticleService {
            //查找用户名
             article.setUserName(user.getUserName());
             //添加文章概要
-            article.setOutline(article.getArticleContent().substring(0,50));
+            String  outline = article.getArticleContent().length()<50?article.getArticleContent():article.getArticleContent().substring(0,50);
+            article.setOutline(outline);
 
         }
         return list;
@@ -60,5 +62,17 @@ public class ArticleServiceImpl implements ArticleService {
     }
     public List<Article> findAll(){
         return articleMongoDBRepository.findAll();
+    }
+
+    public List<Article> findAllOrderByArticleRead(){
+
+        Sort sort = Sort.by(Sort.Direction.DESC,"articleRead");
+
+        return articleMongoDBRepository.findAll(sort);
+
+    }
+    public List<Article> findAllOrOrderByArticleTime(){
+        Sort sort = Sort.by(Sort.Direction.DESC,"articleTime");
+        return articleMongoDBRepository.findAll(sort);
     }
 }

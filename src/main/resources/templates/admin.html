@@ -46,11 +46,11 @@
             <!-- 导航 -->
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar">
-                    <li><a id="user" href="#" class="option-li">用户管理</a></li>
-                    <li><a id="role" href="#" class="option-li">角色管理</a></li>
+                    <li><a id="id-user" href="#" class="option-li">用户管理</a></li>
+                    <li><a id="id-role" href="#" class="option-li role-a">角色管理</a></li>
                    <!--  <li><a id="power" href="#" class="option-li">权限管理</a></li> -->
-                    <li><a id="sort" href="#" class="option-li">系统分类</a></li>
-                    <li><a id="slide" href="#" class="option-li">巨幕管理</a></li>
+                    <li><a id="id-sort" href="#" class="option-li sort-a">系统分类</a></li>
+                    <li><a id="id-slide" href="#" class="option-li">巨幕管理</a></li>
                 </ul>
             </div>
             <!-- 个人信息 -->
@@ -58,12 +58,16 @@
 
             <div id="div-user" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main div-user div-option">
                 <h1 class="page-header">用户管理</h1>
-                <h2 class="sub-header"></h2>
+                <h2 class="sub-header">
+                  <button  id="delete-all-user"type="button" class="btn btn-danger btn-lg delete-all">
+                        删除
+                  </button>
+                </h2>
                 <table id="table-user" class="table table-striped user-table">
                   <thead>
                         <tr>
                             <th>
-                              <input type="checkbox" value="">
+                              <input id="checkall-user" class="checkall" type="checkbox" value="">
                             </th>
                             <th>
                              编号 
@@ -94,7 +98,7 @@
                     <tbody>
                         <tr th:each="item : ${users}">
                             <td>
-                               <input type="checkbox" value="">
+                               <input class="check_item_user" th:attr="delete-id=${item.userId}" type="checkbox" value="">
                             </td>
                             <td th:text="${item.userId}">
                                 TB - Monthly
@@ -115,16 +119,22 @@
                                 Default
                             </td>
                             <td th:text="${item.userFreeze}">
-                                Default
+                                冻结
                             </td>
                             <td>
-                              <button type="button" class="btn btn-success">
+                              <button id="btn-relieve" type="button" class="btn btn-success btn-relieve-user"
+                                th:attr="relieve-id=${item.userId}"
+                              >
                                 解除
                               </button>
-                              <button type="button" class="btn btn-danger">
+                              <button id="btn-freeze" type="button" class="btn btn-danger btn-freeze-user"
+                                th:attr="freeze-id=${item.userId}"
+                              >
                                  冻结
                               </button>
-                              <button id="user" type="button" class="btn btn-danger delete-one">
+                              <button id="user" type="button" class="btn btn-danger delete-one"
+                               th:attr="deleteId=${item.userId}"
+                              >
                                  删除
                               </button>
                             </td>
@@ -133,8 +143,8 @@
                 </table>
             </div>
             <!-- 角色管理 -->
-            <!-- Modal -->
-            <div class="modal fade" id="myModal-role" tabindex="-1" role="dialog" aria-labelledby="   myModalLabel">
+            <!-- 添加 -->
+              <div class="modal fade" id="role-add" tabindex="-1" role="dialog" aria-labelledby="   myModalLabel">
                <div class="modal-dialog" role="document">
                  <div class="modal-content">
                    <div class="modal-header">
@@ -142,57 +152,91 @@
                      <h4 class="modal-title" id="myModalLabel">添加角色</h4>
                    </div>
                    <div class="modal-body">
-                     ...
+                     <div class="form-group">
+                        <label for="examplerole1">角色名</label>
+                        <input type="text" class="form-control" placeholder="角色名称"
+                          id="role-input" 
+                        />
+                      </div>
                    </div>
                    <div class="modal-footer">
                      <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                     <button type="button" class="btn btn-primary">保存</button>
+                     <button type="button" class="btn btn-primary" id="save-role-btn">
+                     保存
+                   </button>
                    </div>
                  </div>
                </div>
              </div>
+             <!-- 编辑框 -->
+             <div class="modal fade" id="role-editor" tabindex="-1" role="dialog" aria-labelledby="   myModalLabel">
+               <div class="modal-dialog" role="document">
+                 <div class="modal-content">
+                   <div class="modal-header">
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span    aria-hidden="true">&times;</span></button>
+                     <h4 class="modal-title" id="myModalLabel">编辑角色</h4>
+                   </div>
+                   <div class="modal-body">
+                     <div class="form-group">
+                        <label for="exampleInputEmail1">角色名</label>
+                        <input type="text" class="form-control" placeholder="角色名称"
+                          id="roleName-input-editor" 
+                        />
+                      </div>
+                       <div class="form-group">
+                        <label for="exampleInputEmail1">状态</label>
+                        <select class="form-control" id="role-editor-select">
+                          <option value="0">解除</option>
+                          <option value="1">冻结</option>
+                        </select>
+                      </div>
+                   </div>
+                   <div class="modal-footer">
+                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                     <button type="button" class="btn btn-primary"  id="role-editor-save">
+                     保存
+                   </button>
+                   </div>
+                 </div>
+               </div>
+             </div>
+
             <div id="div-role" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main div-role div-option">
                 <h1 class="page-header">角色管理</h1>
                 <h2 class="sub-header">
-                  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal-role">
+                  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#role-add">
                         添加
                     </button>
-                    <button type="button" class="btn btn-danger btn-lg">
+                    <button  id="delete-all-role" type="button" class="btn btn-danger btn-lg delete-all">
                         删除
                     </button>
                 </h2>
                 <table id="table-role" class="table table-striped">
                     <thead>
                       <tr>
-                        <th><input type="checkbox" value=""></th>
+                        <th><input id="checkall-role" class="checkall" type="checkbox" value=""></th>
                         <th>编号</th>
                         <th>角色名</th>
                         <th>是否冻结</th>
-                        <th>状态</th>
+                        <th>添加角色的日期</th>
                         <th>操作</th>   
                       </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="role-tbody">
                         <tr th:each="item : ${roles}">
                             <td>
-                               <input type="checkbox" value="">
+                               <input class="check_item_role" th:attr="delete-id=${item.roleId}" type="checkbox" value="">
                             </td>
-                            <td th:text="${item.roleId}">
-                                TB - Monthly
-                            </td>
-                            <td th:text="${item.roleName}">
-                                01/04/2012
-                            </td>
-                            <td th:text="${item.roleValid}">
-                                Default
-                            </td>
-                            <td th:text="${item.roleDate}">
-                                Default
-                            </td>
+                            <td th:text="${item.roleId}">TB - Monthly</td>
+                            <td th:text="${item.roleName}">01/04/2012</td>
+                            <td th:text="${item.roleValid}">Default</td>
+                            <td th:text="${item.roleDate}">Defaul</td>
                             <td>
-                              <button type="button" class="btn btn-primary">
-                                 编辑
-                               </button>
+                             
+                              <button type="button" class="btn btn-primary editor-role-btn" data-toggle="modal" data-target="#role-editor" th:attr="editorId=${item.roleId}" >
+                                编辑
+                              </button>
+                             
                                <button id="role" type="button" class="btn btn-danger delete-one"
                                 th:attr="deleteId=${item.roleId}"
                                >
@@ -203,51 +247,11 @@
                     </tbody>
                 </table>
             </div>
-            <!-- 权限管理 -->
-      <!--       <div id="div-power" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main div-power div-option">
-                <h1 class="page-header">权限管理</h1>
-                <h2 class="sub-header"></h2>
-                <table id="table-power" class="table table-striped user-table">
-                  <thead>
-                      <tr>
-                        <th><input type="checkbox" value=""></th>
-                        <th>编号</th>
-                        <th>权限名称</th>
-                        <th>可访问的URl</th>
-                        <th>操作</th>   
-                      </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                               <input type="checkbox" value="">
-                            </td>
-                            <td>
-                                TB - Monthly
-                            </td>
-                            <td>
-                                01/04/2012
-                            </td>
-                            <td>
-                                Default
-                            </td>
-                            <td>
-                               <button type="button" class="btn btn-primary">
-                                 编辑
-                               </button>
-                               <button type="button" class="btn btn-danger">
-                                 删除
-                               </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div> -->
-             
+<!-- *****************************************系统分类管理********************************************************* -->
             <!--系统分类管理 -->
             <!-- Button trigger modal -->
-            <!-- Modal -->
-            <div class="modal fade" id="myModal-sort" tabindex="-1" role="dialog" aria-labelledby="   myModalLabel">
+            <!-- 新增 -->
+            <div class="modal fade" id="sort-add" tabindex="-1" role="dialog" aria-labelledby="   myModalLabel">
                <div class="modal-dialog" role="document">
                  <div class="modal-content">
                    <div class="modal-header">
@@ -255,11 +259,35 @@
                      <h4 class="modal-title" id="myModalLabel">添加系统分类</h4>
                    </div>
                    <div class="modal-body">
-                     ...
+                    <input type="text" class="form-control" placeholder="分类名称"
+                    id="sort-input" />
                    </div>
                    <div class="modal-footer">
                      <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                     <button type="button" class="btn btn-primary">保存</button>
+                     <button type="button" class="btn btn-primary" id="save-sort-btn" >保存</button>
+                   </div>
+                 </div>
+               </div>
+             </div>
+             <!-- 编辑 -->
+             <div class="modal fade" id="sort-editor" tabindex="-1" role="dialog" aria-labelledby="   myModalLabel">
+               <div class="modal-dialog" role="document">
+                 <div class="modal-content">
+                   <div class="modal-header">
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span    aria-hidden="true">&times;</span></button>
+                     <h4 class="modal-title" id="myModalLabel">编辑系统分类</h4>
+                   </div>
+                   <div class="modal-body">
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">分类名</label>
+                        <input type="text" class="form-control" placeholder="分类名称"
+                          id="sortName-input-editor" 
+                        />
+                      </div>
+                   </div>
+                   <div class="modal-footer">
+                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                     <button type="button" class="btn btn-primary" id="sort-editor-save">保存</button>
                    </div>
                  </div>
                </div>
@@ -268,10 +296,10 @@
             <div id="div-sort" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main div-sort div-option">
                 <h1 class="page-header">系统分类</h1>
                 <h2 class="sub-header">
-                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal-sort">
+                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#sort-add">
                         添加
                     </button>
-                    <button  type="button" class="btn btn-danger btn-lg">
+                    <button  id="delete-all-sort" type="button" class="btn btn-danger btn-lg delete-all">
                         删除
                     </button>
 
@@ -279,7 +307,7 @@
                 <table id="table-sort" class="table table-striped user-table">
                   <thead>
                       <tr>
-                        <th><input type="checkbox" value=""></th>
+                        <th><input id="checkall-sort" class="checkall" type="checkbox" value=""></th>
                         <th>编号</th>
                         <th>分类名称</th>
                         <th>操作</th>   
@@ -288,7 +316,7 @@
                     <tbody>
                         <tr th:each="item : ${sorts}">
                             <td>
-                               <input type="checkbox" value="">
+                               <input class="check_item_sort" th:attr="delete-id=${item.sortId}" type="checkbox" value="">
                             </td>
                             <td th:text="${item.sortId}">
                                 TB - Monthly
@@ -298,12 +326,11 @@
                             </td>
                            
                             <td>
-                               <button type="button" class="btn btn-primary">
-                                 编辑
-                               </button>
+                                <button type="button" class="btn btn-primary editor-sort-btn" data-toggle="modal" data-target="#sort-editor" th:attr="editorId=${item.sortId}">
+                                    编辑
+                                </button>
                                <button id="sort" type="button" class="btn btn-danger delete-one"
                                 th:attr="deleteId=${item.sortId}">
-                               >
                                  删除
                                </button>
                             </td>
@@ -311,50 +338,157 @@
                     </tbody>
                 </table>
             </div>
-            <!--巨幕管理-->
-            <div id="div-slide" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main div-slide div-option">
-                <h1 class="page-header">系统分类</h1>
-                <h4 class="sub-header">
-                    <form method="post" action="/slide/upload">
-                      <div class="form-group">
-                        <label for="exampleInputFile">图片位置：</label>
-                        <input type="file" id="exampleInputFile" />
-                      </div>                    
-                      <button type="submit" class="btn btn-default">提交</button>
-                    </form>
+<!--*************************************************巨幕管理****************************************************--> 
+            <!-- 新增巨幕 -->
+            <div class="modal fade" id="slide-add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">新增轮播图</h4>
+                  </div>
+                  <div class="modal-body">
+                    <form enctype="multipart/form-data" id="slide-add-form">
+                   
 
+                      <div class="form-group">
+                        <label for="add-slide-link">链接</label>
+                        <input id="add-slide-link" type="text" class="form-control"  placeholder="连接" name="slideLink">
+                      </div>
+                      <div class="form-group">
+                        <label for="add-slide-title">标题</label>
+                        <input id="add-slide-title" type="text" class="form-control"  placeholder="标题" name="slideTitle">
+                      </div>
+                      <div class="form-group">
+                        <label for="slide-file">图片</label>
+                        <input type="file" id="slide-file" name="img">                   
+                      </div>                      
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" id="save-slide-btn">保存</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--编辑 -->
+             <div class="modal fade" id="slide-editor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">编辑轮播图</h4>
+                  </div>
+                  <div class="modal-body">
+                     <form enctype="multipart/form-data" id="slide-editor-form"> 
+                      <input type="hidden" name="slideId" id="editor-hidden-slideId"/>
+                      <div class="form-group">
+                        <label for="editor-slide-link">链接</label>
+                        <input id="editor-slide-link" type="text" class="form-control" placeholder="连接" name="slideLink">
+                      </div>
+                      <div class="form-group">
+                        <label for="editor-slide-title">标题</label>
+                        <input id="editor-slide-title" type="text" class="form-control"  placeholder="标题" name="slideTitle">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputFile">图片</label>
+                        <input type="file" id="exampleInputFile" name="img">                   
+                      </div>                      
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" id="sava-slide-update" >保存修改</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="div-slide" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main div-slide div-option">
+                <h1 class="page-header">巨幕管理</h1>
+                <h4 class="sub-header">
+                  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#slide-add">
+                        新增
+                  </button>
+                  <button  id="delete-all-slide" type="button" class="btn btn-danger btn-lg delete-all">
+                        删除
+                  </button>
+                                     
                 </h4>
                 <div class="panel panel-default">
                   <!-- Default panel contents -->
-                  <div class="panel-heading">
-                     <img src="../static/images/slideshow/5ed4de078a11a9878e5aa6f21eee1e15.jpg" 
-                       />
+                  <div class="panel-heading">上传图片</div>
+                  <div class="panel-body">
+                    <p>
+                   
+                    </p>
                   </div>
 
                   <!-- Table -->
                   <table class="table">
-                    <tr>
-                      <td>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="">
-                      </td>
-                      <td>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Email">
-                      </td>
-                      <td>
-                        <button id="slide-img-btn" type="button" class="btn btn-default btn-lg btn-block">未选择</button>
-                        <button id="slide-img-btn" type="button" class="btn btn-danger btn-lg btn-block">删除</button>
-                      </td>
-                    </tr>
+                      <thead>
+                        <tr>
+                          <th>
+                            <input id="checkall-slide" class="checkall" type="checkbox" value="">
+                          </th>
+                          <th>
+                            编号
+                          </th>
+                          <th>
+                            图片
+                          </th>
+                          <th>
+                            连接
+                          </th>
+                          <th>
+                            标题
+                          </th>
+                          <th>
+                            操作
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr th:each="item : ${slides}">
+                          <td>
+                              <input class="check_item_slide" th:attr="delete-id=${item.slideId}" type="checkbox" value="">
+                          </td>
+                          <td th:text=${item.slideId}>
+                            1
+                          </td>
+                          <td>
+                            <img src="../static/images/featured-posts/FreshSalt_ZH-CN12818759319_1920x1080.jpg" alt="..." class="img-rounded post"
+                            th:src="@{${item.slideImg}}">
+                          </td>
+                          <td th:text="${item.slideLink}">
+                            01/04/2012
+                          </td>
+                          <td th:text="${item.slideTitle}">
+                            Default
+                          </td>
+                          <td>
+                            <button type="button" class="btn slide-status-btn" th:attr="openId=${item.slideId},status=${item.slideStatus}">
+                                    开启
+                            </button>
+                           
+                            <button type="button" class="btn btn-primary editor-slide-btn" data-toggle="modal" data-target="#slide-editor" th:attr="editorId=${item.slideId}">
+                                    编辑
+                            </button>
+                            <button id="slide" type="button" class="btn btn-danger delete-one"
+                                th:attr="deleteId=${item.slideId}">
+                                 删除
+                            </button>
+                          </td>
+                        </tr>
                   </table>
-                
-               
+                </div>
                    
                
 
                
                
             </div>
-
+            <!-- 轮播图管理 -->
         </div>
     </div>
     <!-- Bootstrap core JavaScript
@@ -376,7 +510,8 @@
           //点击选项时显示元素
           $("a.option-li").click(function(){
             var currentOption = $(this).attr("id");
-            alert(currentOption);
+            currentOption = currentOption.substring(3);
+          /*  alert(currentOption);*/
             changeOption(currentOption);
           });
           //加载表头信息
@@ -407,19 +542,20 @@
         var bool = confirm("你确认要删除吗？");
         if(bool==false)
           return ;
+        $(this).parent().parent().remove();
         var option = $(this).attr("id");
         alert(option);
         var id = $(this).attr("deleteId");
         $.get(
             "http://localhost:8080/"+option+"/delete",
             {
-              "id" = id 
+              "id" : id 
             },
             function(data){
               if(data.status==200)
               {
                   alert("删除成功！！！");
-                  $(this).parent().parent().remove();
+                  
                  
               } else {
                   alert("删除失败！！！");
@@ -427,66 +563,321 @@
             }
 
           );
+        return false;
         
       });
     });
-
-    /*  //加载Thead
-      function loadThead(){      
-          $("#table-role").empty().append("<thead><tr>"+
-            '<th><input type="checkbox" value=""></th>'+
-            "<th>角色ID</th>"+
-            "<th>角色名</th>"+
-            "<th>是否冻结</th>"+
-            "<th>状态</th>"+
-            "<th>操作</th>"+
-            "</tr></thead>");
-
-          $("#table-power").empty().append("<thead><tr>"+
-            '<th><input type="checkbox" value=""></th>'+
-            "<th>编号</th>"+
-            "<th>权限名称</th>"+
-            "<th>可以访问的URl</th>"+
-             "<th>操作</th>"+
-            "</tr></thead>");
-   
-          $("#table-sort").empty().append("<thead><tr>"+
-            '<th><input type="checkbox" value=""></th>'+
-            "<th>编号</th>"+
-            "<th>分类名称</th>"+
-            "<th>操作</th>"+
-            "</tr></thead>");     
-      }
-      //加载tbody
-      function loadTbody(option,data){
-          var text;
-          var listTd = data.list;
-
-          $("#table-"+optoin).append(
-
+    
+    //所有功能删除多个元素的方法
+    
+    //分类的全选与全部选
+      $("input.checkall").click(function(){
+        var option = $(this).attr("id").substring(9);
+        alert(option);
+        $(".check_item_"+option).prop("checked",$(this).prop("checked"));
+      });
+    //删除所有
+      $("button.delete-all").click(function(){
+        var option=$(this).attr("id").substring(11);
+        alert(option);
+        var del_idstr="-";
+        if(confirm("确认删除？")){
+            $.each($(".check_item_"+option+":checked"),function(){
+              //拼接id字符串
+              del_idstr += $(this).attr("delete-id")+"-";
+              //删除改行
+              $(this).parent().parent().remove();
+            });
+            
+            $.post(
+                "http://localhost:8080/"+option+"/deleteAll",
+                {
+                  "ids" : del_idstr 
+                }
             );
-      }
-      //根据返回的List拼接tbody
-      splitTd(list){
-      }
-      
-      //加载角色数据
-      function loadUserData(currenPage,size,option){
-        $.get( "http://localhost:8080/"+option+"/paging",
-              {
-                "currenPage": currenPage,
-                'size' : size
-              },
-              function(data){
+          }
+           return false;
+      });
+    /*********************************用户管理*********************************/
+    //解除按钮
+     $(document).ready(function(){
+       $(".btn-relieve-user").click(function(){
+          var bool = confirm("确认解除吗？");
+         
+          var id = $(this).attr('relieve-id');
+          if(bool == true){
+             $(this).parent().parent().children().eq(7).text('已解除');
+             $.get(
+                  "http://localhost:8080/user/relieve",
+                  {
+                      "id" : id
+                  },
+                  function(data){
+                    if(data.status==200)
+                    {
+                        alert("操作成功！！！");
+                        $(this).parent().parent().children().eq(7).text('已解除');
+                    } else {
+                        alert("操作失败！！！");
+                    }         
+                  }
+                  ); 
+          }
 
-              }
+       });
+
+     });
+      
+        
+       
+    //冻结按钮
+    $(document).ready(function(){
+      $(".btn-freeze-user").click(function(){
+        var bool = confirm("确认冻结吗？");
+        
+        var id = $(this).attr('freeze-id');
+        if(bool == true){
+          $(this).parent().parent().children().eq(7).text('冻结');
+          $.get(
+            "http://localhost:8080/user/freeze",
+            {
+                "id" : id
+            },
+            function(data){
+              if(data.status==200)
+              {
+                  alert("操作成功！！！");
+                  $(this).parent().parent().children().eq(7).text('冻结');
+              } else {
+                  alert("操作失败！！！");
+              }         
+            }
+            );
+        }
+      });
+    });
+    
+/*********************************角色管理**********************************************/
+//添加角色
+ $(document).ready(function(){
+      $("#save-role-btn").click(function(){
+        var roleName = $("#role-input").val();
+        alert(roleName);
+        $.get(
+             "http://localhost:8080/role/save",
+             {
+              'roleName': roleName
+             },
+             function(data){
+               if(data.status==200)
+              {
+                  alert("操作成功！！！");
+                  window.location.reload();
+                  $("a.role-a").trigger("click");
+
+              } else {
+                  alert("操作失败！！！");
+              }     
+             }
+
+          );
+        return false;
+      });
+    });
+ //编辑角色
+ var editorRoleId;
+ $(".editor-role-btn").click(function(){
+    var roleName = $(this).parent().parent().find("td").eq(2).text();
+    var roleValid = $(this).parent().parent().find("td").eq(3).text();
+    var roleId = $(this).attr("editorId");
+    editorRoleId = roleId;
+    alert(roleName+roleValid+" "+roleId);
+
+    $("#roleName-input-editor").val(roleName);
+    $("#role-editor-select").val(roleValid=="冻结"?1:0);
+
+ });
+ $("#role-editor-save").click(function(){
+  var roleName =  $("#roleName-input-editor").val();
+  var roleValid = $("#role-editor-select").val();
+  var roleId = editorRoleId;
+  $.get(
+             "http://localhost:8080/role/save",
+             {
+              'roleId' : roleId,
+              'roleName' : roleName,
+              'roleValid' : roleValid
+             },
+             function(data){
+               if(data.status==200)
+              {
+                  alert("操作成功！！！");
+                  window.location.reload();
+                  $("a.role-a").trigger("click");
+
+              } else {
+                  alert("操作失败！！！");
+              }     
+             }
 
           );
 
-      }
-*/
+ });
+ 
+/*********************************分类管理**********************************************/
+//添加分类
 
+$(document).ready(function(){
+      $("#save-sort-btn").click(function(){
+        var sortName = $("#sort-input").val();
+        alert(sortName);
+        $.get(
+             "http://localhost:8080/sort/save",
+             {
+              'sortName': sortName
+             },
+             function(data){
+               if(data.status==200)
+              {
+                  alert("操作成功！！！");
+                  window.location.reload();
+                  $("a.sort-a").trigger("click");
 
+              } else {
+                  alert("操作失败！！！");
+              }     
+             }
+
+          );
+      });
+    });
+//编辑分类
+/*获取要编辑分类的Id*/
+ var editorSortId;
+$(".editor-sort-btn").click(function(){
+    var sortName = $(this).parent().parent().find("td").eq(2).text();
+    var sortId = $(this).attr("editorId");
+    editorSortId = sortId;
+    alert(sortName+sortId);
+    $("#sortName-input-editor").val(sortName);
+  
+
+ });
+ $("#sort-editor-save").click(function(){
+  var sortName =  $("#sortName-input-editor").val();
+ 
+  $.get(
+             "http://localhost:8080/sort/save",
+             {
+              'sortId' : editorSortId,
+              'sortName' : sortName            
+             },
+             function(data){
+               if(data.status==200)
+              {
+                  alert("操作成功！！！");
+                  window.location.reload();
+                  $("a.sort-a").trigger("click");
+
+              } else {
+                  alert("操作失败！！！");
+              }     
+             }
+
+          );
+
+ });
+ /************************************巨幕管理************************************************/
+//添加巨幕
+ $(document).ready(function(){
+      $("#save-slide-btn").click(function(){
+        $.ajax({
+              url: 'http://localhost:8080/slide/save',
+              type: 'POST',
+              cache: false,
+              data: new FormData($("#slide-add-form")[0]),
+              processData: false,
+              contentType: false,
+              success:function (data) {
+                  if(data.status==200)
+                  {
+                        alert("操作成功！！！");
+                        window.location.reload();
+
+                    } else {
+                        alert("操作失败！！！");
+                    }     
+
+                }
+            });  
+            return false;  
+      });
+    });
+ //编辑巨幕
+//编辑巨幕
+ $(".editor-slide-btn").click(function(){
+    var slideLink = $(this).parent().parent().find("td").eq(3).text();
+    var slideTitle = $(this).parent().parent().find("td").eq(4).text();
+    var slideId = $(this).attr("editorId");
+
+    alert(slideLink+slideTitle+slideId);
+    $("#editor-slide-link").val(slideLink);
+    $("#editor-slide-title").val(slideTitle);
+    $("#editor-hdden-slideId").val(slideId);
+
+ });
+ $("#sava-slide-update").click(function(){
+   $.ajax({
+              url: 'http://localhost:8080/slide/save',
+              type: 'POST',
+              cache: false,
+              data: new FormData($("#slide-editor-form")[0]),
+              processData: false,
+              contentType: false,
+              success:function (data) {
+                  if(data.status==200)
+                  {
+                        alert("操作成功！！！");
+                        window.location.reload();
+
+                    } else {
+                        alert("操作失败！！！");
+                    }     
+
+                }
+            });  
+ });
+ //巨幕的开启与关闭
+$(document).ready(function(){
+  if($(".slide-status-btn").attr("status")!=0){
+    $(".slide-status-btn").text('已关闭');
+    $(".slide-status-btn").addClass('btn-default');
+  } else {
+    $(".slide-status-btn").text('已开启');
+    $(".slide-status-btn").addClass('btn-success');
+  }
+ });
+ $(".slide-status-btn").click(function(){
+    var slideId = $(this).attr("openId"); 
+    if($(this).hasClass("btn-success")) {
+      //关闭方法
+      $(this).removeClass("btn-success").addClass("btn-default").text("已关闭");
+      updateSlideStatus(slideId,1);
+    } else {
+      //关闭方法
+      $(this).removeClass("btn-default").addClass("btn-success").text("已开启");
+      updateSlideStatus(slideId,0);
+    } 
+ });
+ function updateSlideStatus(id,status){
+  $.get(
+      "http://localhost:8080/slide/status",
+      {
+        'slideId' : id,
+        'slideStatus' : status
+       }
+    );
+ }
     </script>
 </body>
 
